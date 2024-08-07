@@ -1,5 +1,6 @@
-package com.flightmanager.UserService;
+package com.flightmanager.UserService.repository;
 
+import com.flightmanager.UserService.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
