@@ -27,8 +27,9 @@ public class ClientMapper {
         return clientDto;
     }
 
-    public Client clientCreateDtoToClient(Client client, ClientCreateDto clientCreateDto)
+    public Client clientCreateDtoToClient(ClientCreateDto clientCreateDto)
     {
+        Client client = new Client();
         client.setFirstName(clientCreateDto.getFirstName());
         client.setLastName(clientCreateDto.getLastName());
         client.setEmail(clientCreateDto.getEmail());

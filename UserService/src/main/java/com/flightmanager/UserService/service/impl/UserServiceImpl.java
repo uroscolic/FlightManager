@@ -68,13 +68,17 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public ClientDto registerClient(ClientCreateDto clientDto) {
-        return null;
+    public ClientDto registerClient(ClientCreateDto clientCreateDto) {
+        Client client = clientMapper.clientCreateDtoToClient(clientCreateDto);
+        userRepository.save(client);
+        return clientMapper.clientToClientDto(client);
     }
 
     @Override
-    public ManagerDto registerManager(ManagerCreateDto managerDto) {
-        return null;
+    public ManagerDto registerManager(ManagerCreateDto managerCreateDto) {
+        Manager manager = managerMapper.managerCreateDtoToManager(managerCreateDto);
+        userRepository.save(manager);
+        return managerMapper.managerToManagerDto(manager);
     }
 
     @Override

@@ -13,8 +13,8 @@ public interface IUserService {
     ClientDto findClientById(Long id);
     ManagerDto findManagerById(Long id);
     Page<UserDto> findAllOfRole(Pageable pageable, RoleType roleType);
-    ClientDto registerClient(ClientCreateDto clientDto);
-    ManagerDto registerManager(ManagerCreateDto managerDto);
+    ClientDto registerClient(ClientCreateDto clientCreateDto);
+    ManagerDto registerManager(ManagerCreateDto managerCreateDto);
     ClientDto banClient(ClientBanDto clientBanDto);
     ManagerDto banManager(ManagerBanDto managerBanDto);
     TokenResponseDto login(TokenRequestDto tokenRequestDto);

@@ -27,8 +27,9 @@ public class ManagerMapper {
         return managerDto;
     }
 
-    public Manager managerCreateDtoToManager(Manager manager, ManagerCreateDto managerCreateDto)
+    public Manager managerCreateDtoToManager(ManagerCreateDto managerCreateDto)
     {
+        Manager manager = new Manager();
         manager.setFirstName(managerCreateDto.getFirstName());
         manager.setLastName(managerCreateDto.getLastName());
         manager.setEmail(managerCreateDto.getEmail());
