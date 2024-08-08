@@ -15,8 +15,7 @@ import lombok.Setter;
 @Setter
 public class Client extends User{
 
-    private boolean isActive = false;
-    private boolean isBanned = false;
+    private Boolean isBanned = false;
 
 
 }
