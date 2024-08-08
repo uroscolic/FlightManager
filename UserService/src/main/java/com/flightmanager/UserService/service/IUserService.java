@@ -5,7 +5,7 @@ import com.flightmanager.UserService.domain.User;
 import com.flightmanager.UserService.dto.*;
 import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface IUserService {
 

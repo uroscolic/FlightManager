@@ -2,6 +2,8 @@ package com.flightmanager.UserService.mapper;
 
 import com.flightmanager.UserService.domain.Client;
 import com.flightmanager.UserService.domain.RoleType;
+import com.flightmanager.UserService.dto.ClientBanDto;
+import com.flightmanager.UserService.dto.ClientCreateDto;
 import com.flightmanager.UserService.dto.ClientDto;
 import com.flightmanager.UserService.repository.RoleRepository;
 import lombok.AllArgsConstructor;
@@ -23,5 +25,22 @@ public class ClientMapper {
         clientDto.setIsBanned(client.getIsBanned());
         client.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_CLIENT).get());
         return clientDto;
+    }
+
+    public Client clientCreateDtoToClient(Client client, ClientCreateDto clientCreateDto)
+    {
+        client.setFirstName(clientCreateDto.getFirstName());
+        client.setLastName(clientCreateDto.getLastName());
+        client.setEmail(clientCreateDto.getEmail());
+        client.setPassword(clientCreateDto.getPassword());
+        client.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_CLIENT).get());
+        client.setIsBanned(false);
+        return client;
+    }
+
+    public Client clientBanDtoToClient(Client client, ClientBanDto clientBanDto)
+    {
+        client.setIsBanned(clientBanDto.isBanned());
+        return client;
     }
 }

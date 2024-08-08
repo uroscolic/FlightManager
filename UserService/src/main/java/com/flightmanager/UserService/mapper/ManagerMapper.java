@@ -2,6 +2,8 @@ package com.flightmanager.UserService.mapper;
 
 import com.flightmanager.UserService.domain.Manager;
 import com.flightmanager.UserService.domain.RoleType;
+import com.flightmanager.UserService.dto.ManagerBanDto;
+import com.flightmanager.UserService.dto.ManagerCreateDto;
 import com.flightmanager.UserService.dto.ManagerDto;
 import com.flightmanager.UserService.repository.RoleRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,23 @@ public class ManagerMapper {
         managerDto.setIsBanned(manager.getIsBanned());
         manager.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_MANAGER).get());
         return managerDto;
+    }
+
+    public Manager managerCreateDtoToManager(Manager manager, ManagerCreateDto managerCreateDto)
+    {
+        manager.setFirstName(managerCreateDto.getFirstName());
+        manager.setLastName(managerCreateDto.getLastName());
+        manager.setEmail(managerCreateDto.getEmail());
+        manager.setPassword(managerCreateDto.getPassword());
+        manager.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_MANAGER).get());
+        manager.setIsBanned(false);
+        return manager;
+    }
+
+    public Manager managerBanDtoToManager(Manager manager, ManagerBanDto managerBanDto)
+    {
+        manager.setIsBanned(managerBanDto.isBanned());
+        return manager;
     }
 
 }
