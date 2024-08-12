@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "flight", uniqueConstraints = @UniqueConstraint(columnNames = {"gate", "origin_id", "departureTime"}))
+@Table(name = "flight", uniqueConstraints = @UniqueConstraint(columnNames = {"gate", "origin", "departureTime"}))
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,7 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private Double price;
+
+    //TODO da ima broj zauzetih sedista po klasi koji je najvise broj sedista po klasi aviona
+    //TODO dodati cancel i book za flight
 }
