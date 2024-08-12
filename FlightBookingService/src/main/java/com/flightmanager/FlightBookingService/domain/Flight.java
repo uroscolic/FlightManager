@@ -25,4 +25,5 @@ public class Flight {
     private String gate;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
+    private Double price;
 }
