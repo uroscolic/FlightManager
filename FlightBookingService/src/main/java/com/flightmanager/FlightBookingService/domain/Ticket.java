@@ -27,6 +27,6 @@ public class Ticket {
     private Flight flight;
     @OneToOne
     private Flight returnFlight;
-    private Double basePrice;
+    private Double totalPrice;
 
 }

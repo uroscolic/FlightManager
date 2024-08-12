@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "options_for_packages", uniqueConstraints = @UniqueConstraint(columnNames = {"option_id", "package_id"}))
+@Table(name = "options_for_packages", uniqueConstraints = @UniqueConstraint(columnNames = {"option", "package"}))
 @Data
 public class OptionsForPackages {
     @Id
