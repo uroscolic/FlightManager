@@ -26,6 +26,9 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private Double price;
+    private int availableEconomySeats;
+    private int availableBusinessSeats;
+    private int availableFirstClassSeats;
 
     //TODO da ima broj zauzetih sedista po klasi koji je najvise broj sedista po klasi aviona
     //TODO dodati cancel i book za flight
