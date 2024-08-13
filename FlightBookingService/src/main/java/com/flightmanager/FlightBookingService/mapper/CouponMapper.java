@@ -4,16 +4,12 @@ import com.flightmanager.FlightBookingService.domain.Coupon;
 import com.flightmanager.FlightBookingService.dto.CouponChangeActivityDto;
 import com.flightmanager.FlightBookingService.dto.CouponCreateDto;
 import com.flightmanager.FlightBookingService.dto.CouponDto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Component
 public class CouponMapper {
 
-        public CouponDto couponToCouponDTO(Coupon coupon) {
+        public CouponDto couponToCouponDto(Coupon coupon) {
             CouponDto couponDto = new CouponDto();
             couponDto.setCouponCode(coupon.getCouponCode());
             couponDto.setDiscount(coupon.getDiscount());

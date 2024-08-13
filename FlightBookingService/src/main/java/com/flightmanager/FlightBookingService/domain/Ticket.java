@@ -14,7 +14,7 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Passenger owner;
     @OneToOne(optional = false)
     private Passenger passenger;

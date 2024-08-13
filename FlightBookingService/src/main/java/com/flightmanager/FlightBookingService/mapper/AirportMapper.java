@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AirportMapper {
 
-        public AirportDto airportToAirportDTO(Airport airport) {
+        public AirportDto airportToAirportDto(Airport airport) {
             AirportDto airportDto = new AirportDto();
             airportDto.setId(airport.getId());
             airportDto.setName(airport.getName());

@@ -1,4 +1,11 @@
 package com.flightmanager.FlightBookingService.controller;
 
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/coupon")
+@AllArgsConstructor
 public class CouponController {
 }
