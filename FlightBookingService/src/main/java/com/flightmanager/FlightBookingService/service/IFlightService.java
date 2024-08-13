@@ -12,6 +12,6 @@ public interface IFlightService {
 
      Page<FlightDto> getFlights(Plane plane, Airport origin, Airport destination, String gate,
                                 LocalDateTime departureStart, LocalDateTime departureEnd,
-                                LocalDateTime arrivalStart, LocalDateTime arrivalEnd,
+                                LocalDateTime arrivalStart, LocalDateTime arrivalEnd, Double fromPrice, Double toPrice,
                                 Pageable pageable);
 }

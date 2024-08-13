@@ -30,7 +30,8 @@ public class FlightServiceImpl implements IFlightService {
     private FlightMapper flightMapper;
 
     @Override
-    public Page<FlightDto> getFlights(Plane plane, Airport origin, Airport destination, String gate, LocalDateTime departureStart, LocalDateTime departureEnd, LocalDateTime arrivalStart, LocalDateTime arrivalEnd, Pageable pageable) {
+    public Page<FlightDto> getFlights(Plane plane, Airport origin, Airport destination, String gate, LocalDateTime departureStart, LocalDateTime departureEnd, LocalDateTime arrivalStart, LocalDateTime arrivalEnd,
+                                      Double fromPrice, Double toPrice, Pageable pageable) {
         Specification<Flight> spec = Specification.where(plane != null ? FlightSpecification.onPlane(plane) : null)
                 .and(origin != null ? FlightSpecification.fromOrigin(origin) : null)
                 .and(destination != null ? FlightSpecification.toDestination(destination) : null)
@@ -38,7 +39,9 @@ public class FlightServiceImpl implements IFlightService {
                 .and((departureStart != null && departureEnd != null) ?
                         FlightSpecification.withDepartureTimeBetween(departureStart, departureEnd) : null)
                 .and((arrivalStart != null && arrivalEnd != null) ?
-                        FlightSpecification.withArrivalTimeBetween(arrivalStart, arrivalEnd) : null);
+                        FlightSpecification.withArrivalTimeBetween(arrivalStart, arrivalEnd) : null)
+                .and((fromPrice != null && toPrice != null) ?
+                        FlightSpecification.withPriceBetween(fromPrice, toPrice) : null);
 
         return flightRepository.findAll(spec, pageable).map(flightMapper::flightToFlightDto);
     }
