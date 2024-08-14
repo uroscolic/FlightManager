@@ -2,53 +2,24 @@ package com.flightmanager.FlightBookingService.mapper;
 
 import com.flightmanager.FlightBookingService.domain.*;
 import com.flightmanager.FlightBookingService.dto.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class FlightMapper {
+
+    private AirportMapper airportMapper;
+    private PlaneMapper planeMapper;
 
     public FlightDto flightToFlightDto(Flight flight)
     {
         FlightDto flightDto = new FlightDto();
         flightDto.setId(flight.getId());
 
-        PlaneDto planeDto = new PlaneDto();
-        planeDto.setId(flight.getPlane().getId());
-        planeDto.setName(flight.getPlane().getName());
-        planeDto.setBusinessSeats(flight.getPlane().getBusinessSeats());
-        planeDto.setEconomySeats(flight.getPlane().getEconomySeats());
-        planeDto.setFirstClassSeats(flight.getPlane().getFirstClassSeats());
-        flightDto.setPlane(planeDto);
-
-        AirportDto originDto = new AirportDto();
-        originDto.setId(flight.getOrigin().getId());
-        originDto.setName(flight.getOrigin().getName());
-
-        LocationDto originLocationDto = new LocationDto();
-        originLocationDto.setId(flight.getOrigin().getLocation().getId());
-        originLocationDto.setCity(flight.getOrigin().getLocation().getCity());
-        originLocationDto.setCountry(flight.getOrigin().getLocation().getCountry());
-        originLocationDto.setImagePath(flight.getOrigin().getLocation().getImagePath());
-        originLocationDto.setShortName(flight.getOrigin().getLocation().getShortName());
-
-        originDto.setLocation(originLocationDto);
-
-        flightDto.setOrigin(originDto);
-
-        AirportDto destinationDto = new AirportDto();
-        destinationDto.setId(flight.getDestination().getId());
-        destinationDto.setName(flight.getDestination().getName());
-
-        LocationDto destinationLocationDto = new LocationDto();
-        destinationLocationDto.setId(flight.getDestination().getLocation().getId());
-        destinationLocationDto.setCity(flight.getDestination().getLocation().getCity());
-        destinationLocationDto.setCountry(flight.getDestination().getLocation().getCountry());
-        destinationLocationDto.setImagePath(flight.getDestination().getLocation().getImagePath());
-        destinationLocationDto.setShortName(flight.getDestination().getLocation().getShortName());
-
-        destinationDto.setLocation(destinationLocationDto);
-
-        flightDto.setDestination(destinationDto);
+        flightDto.setPlane(planeMapper.planeToPlaneDto(flight.getPlane()));
+        flightDto.setOrigin(airportMapper.airportToAirportDto(flight.getOrigin()));
+        flightDto.setDestination(airportMapper.airportToAirportDto(flight.getDestination()));
 
 
 
