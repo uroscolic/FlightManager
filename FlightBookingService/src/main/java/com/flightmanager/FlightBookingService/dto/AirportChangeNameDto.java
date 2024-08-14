@@ -13,5 +13,5 @@ public class AirportChangeNameDto {
     private String oldName;
     @NotBlank(message = "New name cannot be empty")
     private String newName;
-    private Location location;
+    private LocationDto location;
 }

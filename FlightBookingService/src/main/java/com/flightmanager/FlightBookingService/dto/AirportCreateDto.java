@@ -13,5 +13,5 @@ public class AirportCreateDto {
     @NotBlank(message = "Name cannot be empty")
     private String name;
     @NotBlank(message = "Location cannot be empty")
-    private Location location;
+    private LocationDto location;
 }

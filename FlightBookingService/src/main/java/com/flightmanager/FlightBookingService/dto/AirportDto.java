@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class AirportDto {
     private Long id;
     private String name;
-    private Location location;
+    private LocationDto location;
 }

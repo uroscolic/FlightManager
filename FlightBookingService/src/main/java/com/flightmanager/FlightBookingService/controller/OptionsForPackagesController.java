@@ -1,14 +1,13 @@
 package com.flightmanager.FlightBookingService.controller;
 
 
+import com.flightmanager.FlightBookingService.dto.OptionsForPackagesCreateDto;
 import com.flightmanager.FlightBookingService.service.IOptionsForPackagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,5 +30,10 @@ public class OptionsForPackagesController {
             return ResponseEntity.ok(optionsForPackagesService.getByPackageName(packageName, pageable));
         }
         return ResponseEntity.ok(optionsForPackagesService.getByOptionName(optionName, pageable));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createOptionsForPackages(@RequestBody OptionsForPackagesCreateDto optionsForPackagesCreateDto){
+        return new ResponseEntity<>(optionsForPackagesService.createOptionsForPackages(optionsForPackagesCreateDto), HttpStatus.CREATED);
     }
 }

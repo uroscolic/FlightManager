@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OptionsForPackagesDto {
     private Long id;
-    private Option option;
-    private Package _package;
+    private OptionDto option;
+    private PackageDto _package;
 }

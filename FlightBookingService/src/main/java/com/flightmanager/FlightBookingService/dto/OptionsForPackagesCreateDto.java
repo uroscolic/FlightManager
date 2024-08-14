@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OptionsForPackagesCreateDto {
     @NotBlank(message = "Option cannot be empty")
-    private Option option;
+    private OptionDto option;
     @NotBlank(message = "Package cannot be empty")
-    private Package _package;
+    private PackageDto _package;
 }

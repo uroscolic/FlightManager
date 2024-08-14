@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FlightDto {
     private Long id;
-    private Plane plane;
-    private Airport origin;
-    private Airport destination;
+    private PlaneDto plane;
+    private AirportDto origin;
+    private AirportDto destination;
     private String gate;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;

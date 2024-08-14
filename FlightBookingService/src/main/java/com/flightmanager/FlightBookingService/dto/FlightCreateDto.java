@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FlightCreateDto {
     @NotBlank(message = "Gate cannot be empty")
-    private Plane plane;
+    private PlaneDto plane;
     @NotBlank(message = "Origin cannot be empty")
-    private Airport origin;
+    private AirportDto origin;
     @NotBlank(message = "Destination cannot be empty")
-    private Airport destination;
+    private AirportDto destination;
     @NotBlank(message = "Gate cannot be empty")
     private String gate;
     @NotBlank(message = "Departure time cannot be empty")

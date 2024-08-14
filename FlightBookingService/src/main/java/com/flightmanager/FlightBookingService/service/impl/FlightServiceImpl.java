@@ -3,6 +3,8 @@ package com.flightmanager.FlightBookingService.service.impl;
 import com.flightmanager.FlightBookingService.domain.Airport;
 import com.flightmanager.FlightBookingService.domain.Flight;
 import com.flightmanager.FlightBookingService.domain.Plane;
+import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
+import com.flightmanager.FlightBookingService.dto.FlightCreateDto;
 import com.flightmanager.FlightBookingService.dto.FlightDto;
 import com.flightmanager.FlightBookingService.mapper.FlightMapper;
 import com.flightmanager.FlightBookingService.repository.FlightRepository;
@@ -45,4 +47,25 @@ public class FlightServiceImpl implements IFlightService {
 
         return flightRepository.findAll(spec, pageable).map(flightMapper::flightToFlightDto);
     }
+
+    @Override
+    public FlightDto createFlight(FlightCreateDto flightCreateDto) {
+        Flight flight = flightMapper.flightCreateDtoToFlight(flightCreateDto);
+        flightRepository.save(flight);
+        return flightMapper.flightToFlightDto(flight);
+    }
+
+    @Override
+    public FlightDto updateFlight(FlightDto oldFlight, FlightChangeDto flightChangeDto) {
+        Flight flight = flightMapper.flightChangeDtoToFlight(oldFlight, flightChangeDto);
+        flightRepository.save(flight);
+        return flightMapper.flightToFlightDto(flight);
+    }
+
+    @Override
+    public FlightDto getFlightById(Long id) {
+        return flightMapper.flightToFlightDto(flightRepository.findById(id).orElseThrow(() -> new RuntimeException("Flight not found")));
+    }
+
+
 }

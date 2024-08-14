@@ -1,5 +1,8 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.domain.Airport;
+import com.flightmanager.FlightBookingService.dto.AirportChangeNameDto;
+import com.flightmanager.FlightBookingService.dto.AirportCreateDto;
 import com.flightmanager.FlightBookingService.dto.AirportDto;
 import com.flightmanager.FlightBookingService.mapper.AirportMapper;
 import com.flightmanager.FlightBookingService.repository.AirportRepository;
@@ -41,4 +44,21 @@ public class AirportServiceImpl implements IAirportService {
     public AirportDto getAirportByLocationShortNameAndName(String shortName, String name) {
         return airportMapper.airportToAirportDto(airportRepository.findAirportByLocationShortNameAndName(shortName,name).orElseThrow(() -> new RuntimeException("Airport not found")));
     }
+
+    @Override
+    public AirportDto createAirport(AirportCreateDto airportCreateDto) {
+        Airport airport = airportMapper.airportCreateDtoToAirport(airportCreateDto);
+        airportRepository.save(airport);
+        return airportMapper.airportToAirportDto(airport);
+    }
+
+    @Override
+    public AirportDto updateAirportName(AirportChangeNameDto airportChangeNameDto) {
+        Airport airport = airportRepository.findAirportByLocationShortNameAndName(airportChangeNameDto.getLocation().getShortName(), airportChangeNameDto.getOldName()).orElseThrow(() -> new RuntimeException("Airport not found"));
+        airport.setName(airportChangeNameDto.getNewName());
+        airportRepository.save(airport);
+        return airportMapper.airportToAirportDto(airport);
+    }
+
+
 }

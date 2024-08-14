@@ -1,8 +1,11 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.domain.OptionsForPackages;
+import com.flightmanager.FlightBookingService.dto.OptionsForPackagesCreateDto;
 import com.flightmanager.FlightBookingService.dto.OptionsForPackagesDto;
 import com.flightmanager.FlightBookingService.mapper.OptionsForPackagesMapper;
 import com.flightmanager.FlightBookingService.repository.OptionsForPackagesRepository;
+import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IOptionsForPackagesService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -11,6 +14,7 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Getter
 @Setter
@@ -36,5 +40,12 @@ public class OptionsForPackagesServiceImpl implements IOptionsForPackagesService
     @Override
     public OptionsForPackagesDto getOptionsForPackagesByPackageAndOption(String packageName, String optionName) {
         return optionsForPackagesMapper.optionsForPackagesToOptionsForPackagesDto(optionsForPackagesRepository.findOptionsForPackagesBy_packageNameAndOptionName(packageName, optionName).orElseThrow(() -> new RuntimeException("Options for package not found")));
+    }
+
+    @Override
+    public OptionsForPackagesDto createOptionsForPackages(OptionsForPackagesCreateDto optionsForPackagesCreateDto) {
+        OptionsForPackages optionsForPackages = optionsForPackagesMapper.optionsForPackagesCreateDtoToOptionsForPackages(optionsForPackagesCreateDto);
+        optionsForPackagesRepository.save(optionsForPackages);
+        return optionsForPackagesMapper.optionsForPackagesToOptionsForPackagesDto(optionsForPackages);
     }
 }

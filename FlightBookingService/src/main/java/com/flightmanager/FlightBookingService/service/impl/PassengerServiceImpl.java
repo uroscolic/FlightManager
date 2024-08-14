@@ -1,5 +1,7 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.domain.Passenger;
+import com.flightmanager.FlightBookingService.dto.PassengerCreateDto;
 import com.flightmanager.FlightBookingService.dto.PassengerDto;
 import com.flightmanager.FlightBookingService.mapper.PassengerMapper;
 import com.flightmanager.FlightBookingService.repository.PassengerRepository;
@@ -30,5 +32,12 @@ public class PassengerServiceImpl implements IPassengerService {
     @Override
     public PassengerDto getPassengerByEmail(String email) {
         return passengerMapper.passengerToPassengerDto(passengerRepository.findPassengerByEmail(email).orElseThrow(() -> new RuntimeException("Passenger not found")));
+    }
+
+    @Override
+    public PassengerDto createPassenger(PassengerCreateDto passengerCreateDto) {
+        Passenger passenger = passengerMapper.passengerCreateDtoToPassenger(passengerCreateDto);
+        passengerRepository.save(passenger);
+        return passengerMapper.passengerToPassengerDto(passenger);
     }
 }
