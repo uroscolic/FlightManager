@@ -1,5 +1,8 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.domain.Coupon;
+import com.flightmanager.FlightBookingService.dto.CouponChangeActivityDto;
+import com.flightmanager.FlightBookingService.dto.CouponCreateDto;
 import com.flightmanager.FlightBookingService.dto.CouponDto;
 import com.flightmanager.FlightBookingService.mapper.CouponMapper;
 import com.flightmanager.FlightBookingService.repository.CouponRepository;
@@ -30,5 +33,15 @@ public class CouponServiceImpl implements ICouponService {
     @Override
     public CouponDto getCouponByCouponCode(String couponCode) {
         return couponMapper.couponToCouponDto(couponRepository.findCouponByCouponCode(couponCode).orElseThrow(() -> new RuntimeException("Coupon not found")));
+    }
+
+    @Override
+    public CouponDto createCoupon(CouponCreateDto couponCreateDto) {
+        return couponMapper.couponToCouponDto(couponRepository.save(couponMapper.couponCreateDtoToCoupon(couponCreateDto)));
+    }
+
+    @Override
+    public CouponDto updateCouponActivity(CouponDto oldCoupon, CouponChangeActivityDto couponChangeActivityDto) {
+        return couponMapper.couponToCouponDto(couponRepository.save(couponMapper.couponChangeActivityDtoToCoupon(oldCoupon,couponChangeActivityDto)));
     }
 }

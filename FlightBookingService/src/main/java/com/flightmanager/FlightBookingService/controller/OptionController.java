@@ -1,6 +1,8 @@
 package com.flightmanager.FlightBookingService.controller;
 
+import com.flightmanager.FlightBookingService.dto.OptionCreateDto;
 import com.flightmanager.FlightBookingService.dto.OptionDto;
+import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IOptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,5 +27,10 @@ public class OptionController {
         } else {
             return new ResponseEntity<>(optionService.getAllOptions(pageable), HttpStatus.OK);
         }
+    }
+    @PostMapping
+    @CheckSecurity(roles = {"ROLE_ADMIN","ROLE_MANAGER"})
+    public ResponseEntity<?> createOption(@RequestHeader("Authorization") String authorization, @RequestBody OptionCreateDto optionCreateDto) {
+        return new ResponseEntity<>(optionService.createOption(optionCreateDto), HttpStatus.CREATED);
     }
 }

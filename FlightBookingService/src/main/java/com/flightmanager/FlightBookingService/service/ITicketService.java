@@ -2,6 +2,7 @@ package com.flightmanager.FlightBookingService.service;
 
 import com.flightmanager.FlightBookingService.domain.*;
 import com.flightmanager.FlightBookingService.domain.Class;
+import com.flightmanager.FlightBookingService.dto.TicketCreateDto;
 import com.flightmanager.FlightBookingService.dto.TicketDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,7 @@ public interface ITicketService {
                                 LocalDateTime returnFlightDepartureStart, LocalDateTime returnFlightDepartureEnd,
                                 LocalDateTime returnFlightArrivalStart, LocalDateTime returnFlightArrivalEnd,
                                 Pageable pageable);
+
+     TicketDto createTicket(TicketCreateDto ticketCreateDto);
+
 }

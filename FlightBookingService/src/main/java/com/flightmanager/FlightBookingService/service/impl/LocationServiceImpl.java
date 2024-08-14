@@ -1,6 +1,7 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
 import com.flightmanager.FlightBookingService.domain.Location;
+import com.flightmanager.FlightBookingService.dto.LocationCreateDto;
 import com.flightmanager.FlightBookingService.dto.LocationDto;
 import com.flightmanager.FlightBookingService.mapper.LocationMapper;
 import com.flightmanager.FlightBookingService.repository.LocationRepository;
@@ -47,5 +48,10 @@ public class LocationServiceImpl implements ILocationService {
     @Override
     public Page<LocationDto> getLocationsByCityAndCountry(String city, String country, Pageable pageable) {
         return locationRepository.findLocationsByCityAndCountry(city, country, pageable).map(locationMapper::locationToLocationDto);
+    }
+
+    @Override
+    public LocationDto createLocation(LocationCreateDto locationCreateDto) {
+        return locationMapper.locationToLocationDto(locationRepository.save(locationMapper.locationCreateDtoToLocation(locationCreateDto)));
     }
 }

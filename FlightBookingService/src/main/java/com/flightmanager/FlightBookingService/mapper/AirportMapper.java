@@ -42,6 +42,19 @@ public class AirportMapper {
         return airport;
     }
 
+    public Airport getAirportFromDto(AirportDto airportDto) {
+        Airport airport = new Airport();
+        airport.setId(airportDto.getId());
+        airport.setName(airportDto.getName());
+        Location location = new Location();
+        location.setId(airportDto.getLocation().getId());
+        location.setCity(airportDto.getLocation().getCity());
+        location.setCountry(airportDto.getLocation().getCountry());
+        location.setShortName(airportDto.getLocation().getShortName());
+        location.setImagePath(airportDto.getLocation().getImagePath());
+        airport.setLocation(location);
+        return airport;
+    }
 //    public Airport airportChangeNameDtoToAirport(AirportChangeNameDto airportChangeNameDto)
 //    {
 //        Airport airport = new Airport();

@@ -1,6 +1,8 @@
 package com.flightmanager.FlightBookingService.controller;
 
+import com.flightmanager.FlightBookingService.dto.LocationCreateDto;
 import com.flightmanager.FlightBookingService.dto.LocationDto;
+import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.ILocationService;
 import lombok.AllArgsConstructor;
 
@@ -8,10 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/location")
@@ -39,6 +38,11 @@ public class LocationController {
     @GetMapping("/{city}/{country}")
     public ResponseEntity<Page<LocationDto>> getLocationsByCityAndCountry(@PathVariable("city") String city, @PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCityAndCountry(city,country,pageable), HttpStatus.OK);
+    }
+    @PostMapping
+    @CheckSecurity(roles = {"ROLE_ADMIN"})
+    public ResponseEntity<LocationDto> createLocation(@RequestHeader("Authorization") String authorization, @RequestBody LocationCreateDto locationCreateDto) {
+        return new ResponseEntity<>(iLocationService.createLocation(locationCreateDto), HttpStatus.CREATED);
     }
 
 

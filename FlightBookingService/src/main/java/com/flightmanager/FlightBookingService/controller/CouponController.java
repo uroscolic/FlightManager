@@ -1,6 +1,10 @@
 package com.flightmanager.FlightBookingService.controller;
 
+import com.flightmanager.FlightBookingService.domain.Coupon;
+import com.flightmanager.FlightBookingService.dto.CouponChangeActivityDto;
+import com.flightmanager.FlightBookingService.dto.CouponCreateDto;
 import com.flightmanager.FlightBookingService.dto.CouponDto;
+import com.flightmanager.FlightBookingService.mapper.CouponMapper;
 import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.ICouponService;
 import lombok.AllArgsConstructor;
@@ -8,10 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/coupon")
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CouponController {
 
     private ICouponService iCouponService;
+    private CouponMapper couponMapper;
 
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
@@ -32,5 +34,18 @@ public class CouponController {
     public ResponseEntity<CouponDto> getCouponByCouponCode(//@RequestHeader("Authorization") String authorization,
                                                            String couponCode) {
         return new ResponseEntity<>(iCouponService.getCouponByCouponCode(couponCode), HttpStatus.OK);
+    }
+
+    @PostMapping
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
+    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponCreateDto couponCreateDto) {
+        return new ResponseEntity<>(iCouponService.createCoupon(couponCreateDto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{couponCode}")
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
+    public ResponseEntity<CouponDto> updateCoupon(@RequestHeader("Authorization") String authorization, @RequestBody CouponChangeActivityDto couponChangeActivityDto) {
+        CouponDto couponDto = iCouponService.getCouponByCouponCode(couponChangeActivityDto.getCouponCode());
+        return new ResponseEntity<>(iCouponService.updateCouponActivity(couponDto, couponChangeActivityDto), HttpStatus.OK);
     }
 }

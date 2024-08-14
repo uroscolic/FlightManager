@@ -1,5 +1,6 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.dto.OptionCreateDto;
 import com.flightmanager.FlightBookingService.dto.OptionDto;
 import com.flightmanager.FlightBookingService.mapper.OptionMapper;
 import com.flightmanager.FlightBookingService.repository.OptionRepository;
@@ -31,4 +32,10 @@ public class OptionServiceImpl implements IOptionService {
     public OptionDto getOptionByName(String name) {
         return optionMapper.optionToOptionDto(optionRepository.findOptionByName(name).orElseThrow(() -> new RuntimeException("Option not found")));
     }
+
+    @Override
+    public OptionDto createOption(OptionCreateDto optionCreateDto) {
+        return optionMapper.optionToOptionDto(optionRepository.save(optionMapper.optionCreateDtoToOption(optionCreateDto)));
+    }
+
 }

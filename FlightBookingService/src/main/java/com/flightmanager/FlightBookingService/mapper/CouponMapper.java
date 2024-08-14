@@ -26,7 +26,7 @@ public class CouponMapper {
             return coupon;
         }
 
-        public Coupon couponChangeActivityDtoToCoupon(Coupon oldCoupon, CouponChangeActivityDto couponChangeActivityDto)
+        public Coupon couponChangeActivityDtoToCoupon(CouponDto oldCoupon, CouponChangeActivityDto couponChangeActivityDto)
         {
             Coupon coupon = new Coupon();
             coupon.setDiscount(oldCoupon.getDiscount());

@@ -3,15 +3,15 @@ package com.flightmanager.FlightBookingService.controller;
 import com.flightmanager.FlightBookingService.domain.*;
 import com.flightmanager.FlightBookingService.domain.Class;
 import com.flightmanager.FlightBookingService.domain.Package;
+import com.flightmanager.FlightBookingService.dto.TicketCreateDto;
 import com.flightmanager.FlightBookingService.dto.TicketDto;
 import com.flightmanager.FlightBookingService.service.ITicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +23,7 @@ public class TicketController {
     private ITicketService iTicketService;
 
     @GetMapping
-    public Page<TicketDto> getTickets(
+    public ResponseEntity<Page<TicketDto>> getTickets(
             @RequestParam(required = false) String ownerEmail,
             @RequestParam(required = false) Boolean isReturn,
             @RequestParam(required = false) Passenger passenger,
@@ -43,9 +43,14 @@ public class TicketController {
             @RequestParam(required = false) LocalDateTime returnFlightArrivalEnd,
             Pageable pageable){
 
-        return iTicketService.getTickets(ownerEmail, isReturn, passenger, flight, returnFlight,
+        return new ResponseEntity<>(iTicketService.getTickets(ownerEmail, isReturn, passenger, flight, returnFlight,
                 ticketClass, _package, totalPrice, plane, flightDepartureStart, flightDepartureEnd,
                 flightArrivalStart, flightArrivalEnd, returnFlightDepartureStart, returnFlightDepartureEnd,
-                returnFlightArrivalStart, returnFlightArrivalEnd, pageable);
+                returnFlightArrivalStart, returnFlightArrivalEnd, pageable), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketCreateDto ticketCreateDto){
+        return new ResponseEntity<>(iTicketService.createTicket(ticketCreateDto), HttpStatus.CREATED);
     }
 }

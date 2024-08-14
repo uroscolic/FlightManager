@@ -1,5 +1,6 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
+import com.flightmanager.FlightBookingService.dto.PackageCreateDto;
 import com.flightmanager.FlightBookingService.dto.PackageDto;
 import com.flightmanager.FlightBookingService.mapper.PackageMapper;
 import com.flightmanager.FlightBookingService.repository.PackageRepository;
@@ -30,5 +31,10 @@ public class PackageServiceImpl implements IPackageService {
     @Override
     public PackageDto getPackageByName(String name) {
         return packageMapper.packageToPackageDto(packageRepository.findPackageByName(name).orElseThrow(() -> new RuntimeException("Package not found")));
+    }
+
+    @Override
+    public PackageDto createPackage(PackageCreateDto packageCreateDto) {
+        return packageMapper.packageToPackageDto(packageRepository.save(packageMapper.packageCreateDtoToPackage(packageCreateDto)));
     }
 }

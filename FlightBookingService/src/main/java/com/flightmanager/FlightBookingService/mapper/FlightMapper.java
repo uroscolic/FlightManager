@@ -144,5 +144,28 @@ public class FlightMapper {
         return flight;
     }
 
+    public Flight getFlightFromDto(FlightDto flightDto) {
+        Flight flight = new Flight();
+        flight.setId(flightDto.getId());
+        flight.setArrivalTime(flightDto.getArrivalTime());
+        flight.setDepartureTime(flightDto.getDepartureTime());
+        flight.setDestination(airportMapper.getAirportFromDto(flightDto.getDestination()));
+        flight.setOrigin(airportMapper.getAirportFromDto(flightDto.getOrigin()));
+        flight.setPrice(flightDto.getPrice());
+        flight.setGate(flightDto.getGate());
+        flight.setAvailableBusinessSeats(flightDto.getAvailableBusinessSeats());
+        flight.setAvailableEconomySeats(flightDto.getAvailableEconomySeats());
+        flight.setAvailableFirstClassSeats(flightDto.getAvailableFirstClassSeats());
+
+        Plane plane = new Plane();
+        plane.setId(flightDto.getPlane().getId());
+        plane.setName(flightDto.getPlane().getName());
+        plane.setBusinessSeats(flightDto.getPlane().getBusinessSeats());
+        plane.setEconomySeats(flightDto.getPlane().getEconomySeats());
+        plane.setFirstClassSeats(flightDto.getPlane().getFirstClassSeats());
+
+        flight.setPlane(plane);
+        return flight;
+    }
 
 }

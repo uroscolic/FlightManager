@@ -2,6 +2,7 @@ package com.flightmanager.FlightBookingService.service.impl;
 
 import com.flightmanager.FlightBookingService.domain.*;
 import com.flightmanager.FlightBookingService.domain.Class;
+import com.flightmanager.FlightBookingService.dto.TicketCreateDto;
 import com.flightmanager.FlightBookingService.dto.TicketDto;
 import com.flightmanager.FlightBookingService.mapper.TicketMapper;
 import com.flightmanager.FlightBookingService.repository.TicketRepository;
@@ -56,5 +57,10 @@ public class TicketServiceImpl implements ITicketService {
                         TicketSpecification.withReturnFlightArrivalTimeBetween(returnFlightArrivalStart, returnFlightArrivalEnd) : null);
 
         return ticketRepository.findAll(spec, pageable).map(ticketMapper :: ticketToTicketDto);
+    }
+
+    @Override
+    public TicketDto createTicket(TicketCreateDto ticketCreateDto) {
+        return ticketMapper.ticketToTicketDto(ticketRepository.save(ticketMapper.ticketCreateDtoToTicket(ticketCreateDto)));
     }
 }

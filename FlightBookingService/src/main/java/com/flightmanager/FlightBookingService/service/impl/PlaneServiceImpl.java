@@ -1,6 +1,7 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
 import com.flightmanager.FlightBookingService.domain.Plane;
+import com.flightmanager.FlightBookingService.dto.PlaneCreateDto;
 import com.flightmanager.FlightBookingService.dto.PlaneDto;
 import com.flightmanager.FlightBookingService.mapper.PlaneMapper;
 import com.flightmanager.FlightBookingService.repository.PlaneRepository;
@@ -44,5 +45,10 @@ public class PlaneServiceImpl implements IPlaneService {
         }
 
         return planeRepository.findAll(spec, pageable).map(planeMapper::planeToPlaneDto);
+    }
+
+    @Override
+    public PlaneDto createPlane(PlaneCreateDto planeCreateDto) {
+        return planeMapper.planeToPlaneDto(planeRepository.save(planeMapper.planeCreateDtoToPlane(planeCreateDto)));
     }
 }

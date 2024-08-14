@@ -26,4 +26,13 @@ public class PassengerMapper {
         passenger.setEmail(passengerCreateDto.getEmail());
         return passenger;
     }
+
+    public Passenger getPassengerFromDto(PassengerDto passengerDto) {
+        Passenger passenger = new Passenger();
+        passenger.setId(passengerDto.getId());
+        passenger.setFirstName(passengerDto.getFirstName());
+        passenger.setLastName(passengerDto.getLastName());
+        passenger.setEmail(passengerDto.getEmail());
+        return passenger;
+    }
 }
