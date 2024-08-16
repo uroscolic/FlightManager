@@ -51,6 +51,9 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public FlightDto createFlight(FlightCreateDto flightCreateDto) {
         Flight flight = flightMapper.flightCreateDtoToFlight(flightCreateDto);
+        flight.setAvailableEconomySeats(flight.getPlane().getEconomySeats());
+        flight.setAvailableBusinessSeats(flight.getPlane().getBusinessSeats());
+        flight.setAvailableFirstClassSeats(flight.getPlane().getFirstClassSeats());
         flightRepository.save(flight);
         return flightMapper.flightToFlightDto(flight);
     }

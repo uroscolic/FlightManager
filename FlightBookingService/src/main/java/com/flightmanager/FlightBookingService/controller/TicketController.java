@@ -53,4 +53,8 @@ public class TicketController {
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketCreateDto ticketCreateDto){
         return new ResponseEntity<>(iTicketService.createTicket(ticketCreateDto), HttpStatus.CREATED);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> cancelTicket(@PathVariable("id") Long id){
+        return new ResponseEntity<>(iTicketService.cancelTicket(id), HttpStatus.OK);
+    }
 }

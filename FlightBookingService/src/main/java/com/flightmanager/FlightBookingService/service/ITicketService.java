@@ -21,5 +21,6 @@ public interface ITicketService {
                                 Pageable pageable);
 
      TicketDto createTicket(TicketCreateDto ticketCreateDto);
+     Long cancelTicket(Long id);
 
 }

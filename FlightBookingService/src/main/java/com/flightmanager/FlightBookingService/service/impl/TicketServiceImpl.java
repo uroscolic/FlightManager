@@ -5,6 +5,8 @@ import com.flightmanager.FlightBookingService.domain.Class;
 import com.flightmanager.FlightBookingService.dto.TicketCreateDto;
 import com.flightmanager.FlightBookingService.dto.TicketDto;
 import com.flightmanager.FlightBookingService.mapper.TicketMapper;
+import com.flightmanager.FlightBookingService.repository.FlightRepository;
+import com.flightmanager.FlightBookingService.repository.PlaneRepository;
 import com.flightmanager.FlightBookingService.repository.TicketRepository;
 import com.flightmanager.FlightBookingService.service.ITicketService;
 import com.flightmanager.FlightBookingService.specification.TicketSpecification;
@@ -19,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.flightmanager.FlightBookingService.domain.Package;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -29,6 +32,7 @@ public class TicketServiceImpl implements ITicketService {
 
     private TicketRepository ticketRepository;
     private TicketMapper ticketMapper;
+    private FlightRepository flightRepository;
 
     @Override
     public Page<TicketDto> getTickets(String ownerEmail, Boolean isReturn, Passenger passenger,
@@ -61,6 +65,85 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public TicketDto createTicket(TicketCreateDto ticketCreateDto) {
-        return ticketMapper.ticketToTicketDto(ticketRepository.save(ticketMapper.ticketCreateDtoToTicket(ticketCreateDto)));
+        Ticket ticket = ticketMapper.ticketCreateDtoToTicket(ticketCreateDto);
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime departureTime = ticket.getFlight().getDepartureTime();
+
+        if (Duration.between(now, departureTime).toHours() < 12) {
+            throw new RuntimeException("You can't buy a ticket less than 12 hours before the flight");
+        }
+
+        Flight flight = ticket.getFlight();
+        Class ticketClass = ticket.getTicketClass();
+        helperCreate(flight, ticketClass);
+
+        if(ticket.isReturn()) {
+            flight = ticket.getReturnFlight();
+            helperCreate(flight, ticketClass);
+        }
+
+        return ticketMapper.ticketToTicketDto(ticketRepository.save(ticket));
+    }
+
+
+
+    @Override
+    public Long cancelTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElse(null);
+        if (ticket == null) {
+            return -1L;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime departureTime = ticket.getFlight().getDepartureTime();
+
+        if (Duration.between(now, departureTime).toHours() < 48) {
+            throw new RuntimeException("You can't cancel a ticket less than 48 hours before the flight");
+        }
+
+
+        Class ticketClass = ticket.getTicketClass();
+        Flight flight = ticket.getFlight();
+        helper(ticketClass, flight);
+
+        if(ticket.isReturn()) {
+            flight = ticket.getReturnFlight();
+            helper(ticketClass, flight);
+        }
+
+        ticketRepository.deleteById(id);
+        return id;
+    }
+
+    private void helper(Class ticketClass, Flight flight) {
+        if(ticketClass == Class.BUSINESS) {
+            flight.setAvailableBusinessSeats(flight.getAvailableBusinessSeats() + 1);
+        } else if(ticketClass == Class.ECONOMY) {
+            flight.setAvailableEconomySeats(flight.getAvailableEconomySeats() + 1);
+        } else {
+            flight.setAvailableFirstClassSeats(flight.getAvailableFirstClassSeats() + 1);
+        }
+        flightRepository.save(flight);
+    }
+
+    private void helperCreate(Flight flight, Class ticketClass) {
+
+        if(ticketClass == Class.BUSINESS) {
+            if(flight.getAvailableBusinessSeats() == 0) {
+                throw new RuntimeException("No more business seats available");
+            }
+            flight.setAvailableBusinessSeats(flight.getAvailableBusinessSeats() - 1);
+        } else if(ticketClass == Class.ECONOMY) {
+            if(flight.getAvailableEconomySeats() == 0) {
+                throw new RuntimeException("No more economy seats available");
+            }
+            flight.setAvailableEconomySeats(flight.getAvailableEconomySeats() - 1);
+        } else {
+            if(flight.getAvailableFirstClassSeats() == 0) {
+                throw new RuntimeException("No more first class seats available");
+            }
+            flight.setAvailableFirstClassSeats(flight.getAvailableFirstClassSeats() - 1);
+        }
+        flightRepository.save(flight);
     }
 }
