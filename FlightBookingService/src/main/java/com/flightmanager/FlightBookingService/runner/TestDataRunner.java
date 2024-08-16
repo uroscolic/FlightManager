@@ -1,4 +1,128 @@
 package com.flightmanager.FlightBookingService.runner;
 
-public class TestDataRunner {
+import com.flightmanager.FlightBookingService.domain.*;
+import com.flightmanager.FlightBookingService.domain.Class;
+import com.flightmanager.FlightBookingService.domain.Package;
+import com.flightmanager.FlightBookingService.mapper.TicketMapper;
+import com.flightmanager.FlightBookingService.repository.*;
+import lombok.AllArgsConstructor;
+import org.hibernate.grammars.hql.HqlParser;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Profile({"default"})
+@Component
+@AllArgsConstructor
+public class TestDataRunner implements CommandLineRunner {
+
+    private PassengerRepository passengerRepository;
+    private PlaneRepository planeRepository;
+    private FlightRepository flightRepository;
+    private AirportRepository airportRepository;
+    private PackageRepository packageRepository;
+    private TicketRepository ticketRepository;
+    private CouponRepository couponRepository;
+    private OptionsForPackagesRepository optionsForPackagesRepository;
+    private OptionRepository optionRepository;
+    private LocationRepository locationRepository;
+
+
+
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        Passenger passenger = new Passenger();
+        passenger.setFirstName("Uros");
+        passenger.setLastName("Colic");
+        passenger.setEmail("uroscolic02@gmail.com");
+
+        passengerRepository.save(passenger);
+
+        Package _package = new Package();
+        _package.setName("Package 1");
+
+        packageRepository.save(_package);
+
+        Plane plane = new Plane();
+        plane.setName("Plane 1");
+        plane.setBusinessSeats(11);
+        plane.setEconomySeats(11);
+        plane.setFirstClassSeats(11);
+
+        planeRepository.save(plane);
+
+        Airport airport = new Airport();
+        airport.setName("Airport 1");
+
+
+        Location location = new Location();
+        location.setCountry("Serbia");
+        location.setCity("Belgrade");
+        location.setImagePath("imagePath");
+        location.setShortName("SRB-BG");
+
+        Location location1 = new Location();
+        location1.setCountry("Serbia");
+        location1.setCity("Novi Sad");
+        location1.setImagePath("imagePath");
+        location1.setShortName("SRB-NS");
+
+        locationRepository.save(location);
+        locationRepository.save(location1);
+        airport.setLocation(location);
+
+        airportRepository.save(airport);
+
+        Airport airport1 = new Airport();
+        airport1.setName("Airport 2");
+        airport1.setLocation(location1);
+
+        airportRepository.save(airport1);
+
+
+
+        Flight flight = new Flight();
+        flight.setPlane(plane);
+        System.out.println(flight.getAvailableEconomySeats());
+        flight.setOrigin(airport);
+        flight.setDestination(airport1);
+        flight.setGate("A1");
+        flight.setDepartureTime(LocalDateTime.now());
+        flight.setArrivalTime(LocalDateTime.now().plusHours(1));
+        flight.setPrice(100.0);
+
+        flightRepository.save(flight);
+
+        Ticket ticket = new Ticket();
+        ticket.setFlight(flight);
+        ticket.setPassenger(passenger);
+        ticket.setSeatNumber(1);
+        ticket.setTicketClass(Class.ECONOMY);
+        ticket.setReturn(false);
+        ticket.set_package(_package);
+        ticket.setTotalPrice(100.0);
+        ticket.setOwner(passenger);
+
+        Ticket ticket1 = new Ticket();
+        ticket1.setFlight(flight);
+        ticket1.setPassenger(passenger);
+        ticket1.setSeatNumber(2);
+        ticket1.setTicketClass(Class.BUSINESS);
+        ticket1.setReturn(false);
+        ticket1.set_package(_package);
+        ticket1.setTotalPrice(200.0);
+        ticket1.setOwner(passenger);
+
+
+
+        ticketRepository.save(ticket);
+        ticketRepository.save(ticket1);
+
+
+
+    }
 }

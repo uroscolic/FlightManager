@@ -17,6 +17,7 @@ public class TicketMapper {
 
     public TicketDto ticketToTicketDto(Ticket ticket)
     {
+        System.out.println("Ticket: " + ticket.toString());
         TicketDto ticketDto = new TicketDto();
         ticketDto.setId(ticket.getId());
         ticketDto.setOwner(passengerMapper.passengerToPassengerDto(ticket.getOwner()));
@@ -31,7 +32,9 @@ public class TicketMapper {
 
         ticketDto.set_package(_package);
         ticketDto.setFlight(flightMapper.flightToFlightDto(ticket.getFlight()));
-        ticketDto.setReturnFlight(flightMapper.flightToFlightDto(ticket.getReturnFlight()));
+
+        if(ticket.getReturnFlight() != null)
+            ticketDto.setReturnFlight(flightMapper.flightToFlightDto(ticket.getReturnFlight()));
         ticketDto.setTotalPrice(ticket.getTotalPrice());
         return ticketDto;
     }
@@ -52,7 +55,9 @@ public class TicketMapper {
 
         ticket.set_package(_package);
         ticket.setFlight(flightMapper.getFlightFromDto(ticketCreateDto.getFlight()));
-        ticket.setReturnFlight(flightMapper.getFlightFromDto(ticketCreateDto.getReturnFlight()));
+
+        if(ticketCreateDto.getReturnFlight() != null)
+            ticket.setReturnFlight(flightMapper.getFlightFromDto(ticketCreateDto.getReturnFlight()));
         ticket.setTotalPrice(ticketCreateDto.getTotalPrice());
         return ticket;
     }

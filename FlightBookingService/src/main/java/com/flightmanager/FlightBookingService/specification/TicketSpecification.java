@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 public class TicketSpecification {
 
     public static Specification<Ticket> withOwner(String email) {
+
+        System.out.println("Email: " + email);
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("owner").get("email"), email);
     }
@@ -46,9 +48,9 @@ public class TicketSpecification {
                 criteriaBuilder.equal(root.get("_package"), _package);
     }
 
-    public static Specification<Ticket> withTotalPrice(Double totalPrice) {
+    public static Specification<Ticket> withTotalPriceBetween(Double from, Double to) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("totalPrice"), totalPrice);
+                criteriaBuilder.between(root.get("totalPrice"), from, to);
     }
 
     public static Specification<Ticket> onPlane(Plane plane) {

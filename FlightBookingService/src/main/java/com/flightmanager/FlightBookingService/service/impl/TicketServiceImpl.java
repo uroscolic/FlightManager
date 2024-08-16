@@ -37,7 +37,7 @@ public class TicketServiceImpl implements ITicketService {
     @Override
     public Page<TicketDto> getTickets(String ownerEmail, Boolean isReturn, Passenger passenger,
                                       Flight flight, Flight returnFlight, Class ticketClass, Package _package,
-                                      Double totalPrice, Plane plane, LocalDateTime flightDepartureStart,
+                                      Double from, Double to, Plane plane, LocalDateTime flightDepartureStart,
                                       LocalDateTime flightDepartureEnd, LocalDateTime flightArrivalStart,
                                       LocalDateTime flightArrivalEnd, LocalDateTime returnFlightDepartureStart,
                                       LocalDateTime returnFlightDepartureEnd, LocalDateTime returnFlightArrivalStart,
@@ -49,7 +49,7 @@ public class TicketServiceImpl implements ITicketService {
                 .and(returnFlight != null ? TicketSpecification.withReturnFlight(returnFlight) : null)
                 .and(ticketClass != null ? TicketSpecification.withTicketClass(ticketClass) : null)
                 .and(_package != null ? TicketSpecification.withPackage(_package) : null)
-                .and(totalPrice != null ? TicketSpecification.withTotalPrice(totalPrice) : null)
+                .and(from != null && to != null ? TicketSpecification.withTotalPriceBetween(from, to) : null)
                 .and(plane != null ? TicketSpecification.onPlane(plane) : null)
                 .and((flightDepartureStart != null && flightDepartureEnd != null) ?
                         TicketSpecification.withFlightDepartureTimeBetween(flightDepartureStart, flightDepartureEnd) : null)

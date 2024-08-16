@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class PlaneController {
 
+    //TODO zauzeti avion da ne moze da leti dok se ne zavrsi let
+
     private IPlaneService iPlaneService;
 
     @GetMapping

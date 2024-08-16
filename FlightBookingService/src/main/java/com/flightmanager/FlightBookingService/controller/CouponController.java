@@ -29,16 +29,17 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.getAllCoupons(pageable), HttpStatus.OK);
     }
 
-    @GetMapping("/coupon-code")
+    @GetMapping("/{coupon-code}")
     //@CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> getCouponByCouponCode(//@RequestHeader("Authorization") String authorization,
-                                                           String couponCode) {
+                                                           @PathVariable("coupon-code") String couponCode) {
         return new ResponseEntity<>(iCouponService.getCouponByCouponCode(couponCode), HttpStatus.OK);
     }
 
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
-    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponCreateDto couponCreateDto) {
+    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponCreateDto couponCreateDto,
+                                                  @RequestHeader("Authorization") String authorization){
         return new ResponseEntity<>(iCouponService.createCoupon(couponCreateDto), HttpStatus.CREATED);
     }
 

@@ -16,16 +16,16 @@ public class Ticket {
     private Long id;
     @ManyToOne(optional = false)
     private Passenger owner;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Passenger passenger;
     private int seatNumber;
     private Class ticketClass;
     private boolean isReturn = false;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Package _package;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Flight flight;
-    @OneToOne
+    @ManyToOne
     private Flight returnFlight;
     private Double totalPrice;
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public interface ITicketService {
 
      Page<TicketDto> getTickets(String ownerEmail, Boolean isReturn, Passenger passenger, Flight flight, Flight returnFlight,
-                                Class ticketClass, Package _package, Double totalPrice, Plane plane,
+                                Class ticketClass, Package _package, Double from, Double to, Plane plane,
                                 LocalDateTime flightDepartureStart, LocalDateTime flightDepartureEnd,
                                 LocalDateTime flightArrivalStart, LocalDateTime flightArrivalEnd,
                                 LocalDateTime returnFlightDepartureStart, LocalDateTime returnFlightDepartureEnd,

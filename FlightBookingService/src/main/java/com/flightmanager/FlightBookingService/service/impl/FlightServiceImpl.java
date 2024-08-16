@@ -54,6 +54,7 @@ public class FlightServiceImpl implements IFlightService {
         flight.setAvailableEconomySeats(flight.getPlane().getEconomySeats());
         flight.setAvailableBusinessSeats(flight.getPlane().getBusinessSeats());
         flight.setAvailableFirstClassSeats(flight.getPlane().getFirstClassSeats());
+        System.out.println(flight.getAvailableEconomySeats() + " " + flight.getAvailableBusinessSeats() + " " + flight.getAvailableFirstClassSeats());
         flightRepository.save(flight);
         return flightMapper.flightToFlightDto(flight);
     }

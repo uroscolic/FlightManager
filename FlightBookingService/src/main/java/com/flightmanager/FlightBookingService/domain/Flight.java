@@ -16,11 +16,11 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Plane plane;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Airport origin;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Airport destination;
     private String gate;
     private LocalDateTime departureTime;
