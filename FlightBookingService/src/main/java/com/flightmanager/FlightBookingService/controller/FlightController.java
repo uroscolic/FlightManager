@@ -1,12 +1,10 @@
 package com.flightmanager.FlightBookingService.controller;
 
 import com.flightmanager.FlightBookingService.domain.Airport;
-import com.flightmanager.FlightBookingService.domain.Flight;
 import com.flightmanager.FlightBookingService.domain.Plane;
 import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
 import com.flightmanager.FlightBookingService.dto.FlightCreateDto;
 import com.flightmanager.FlightBookingService.dto.FlightDto;
-import com.flightmanager.FlightBookingService.mapper.FlightMapper;
 import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IFlightService;
 import lombok.AllArgsConstructor;

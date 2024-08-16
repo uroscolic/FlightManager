@@ -1,11 +1,9 @@
 package com.flightmanager.FlightBookingService.controller;
 
 import com.flightmanager.FlightBookingService.dto.PackageCreateDto;
-import com.flightmanager.FlightBookingService.dto.PackageDto;
 import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IPackageService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

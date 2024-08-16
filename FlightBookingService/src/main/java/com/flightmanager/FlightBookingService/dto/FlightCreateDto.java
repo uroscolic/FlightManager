@@ -1,7 +1,6 @@
 package com.flightmanager.FlightBookingService.dto;
 
-import com.flightmanager.FlightBookingService.domain.Airport;
-import com.flightmanager.FlightBookingService.domain.Plane;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

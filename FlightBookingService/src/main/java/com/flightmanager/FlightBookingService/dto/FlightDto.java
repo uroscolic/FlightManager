@@ -1,7 +1,6 @@
 package com.flightmanager.FlightBookingService.dto;
 
-import com.flightmanager.FlightBookingService.domain.Airport;
-import com.flightmanager.FlightBookingService.domain.Plane;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

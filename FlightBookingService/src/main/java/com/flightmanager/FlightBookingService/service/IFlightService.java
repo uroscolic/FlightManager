@@ -1,7 +1,6 @@
 package com.flightmanager.FlightBookingService.service;
 
 import com.flightmanager.FlightBookingService.domain.Airport;
-import com.flightmanager.FlightBookingService.domain.Flight;
 import com.flightmanager.FlightBookingService.domain.Plane;
 import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
 import com.flightmanager.FlightBookingService.dto.FlightCreateDto;

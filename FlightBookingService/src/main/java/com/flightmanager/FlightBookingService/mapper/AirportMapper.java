@@ -2,10 +2,8 @@ package com.flightmanager.FlightBookingService.mapper;
 
 import com.flightmanager.FlightBookingService.domain.Airport;
 import com.flightmanager.FlightBookingService.domain.Location;
-import com.flightmanager.FlightBookingService.dto.AirportChangeNameDto;
 import com.flightmanager.FlightBookingService.dto.AirportCreateDto;
 import com.flightmanager.FlightBookingService.dto.AirportDto;
-import com.flightmanager.FlightBookingService.dto.LocationDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

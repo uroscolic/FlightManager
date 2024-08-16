@@ -6,7 +6,6 @@ import com.flightmanager.FlightBookingService.dto.TicketCreateDto;
 import com.flightmanager.FlightBookingService.dto.TicketDto;
 import com.flightmanager.FlightBookingService.mapper.TicketMapper;
 import com.flightmanager.FlightBookingService.repository.FlightRepository;
-import com.flightmanager.FlightBookingService.repository.PlaneRepository;
 import com.flightmanager.FlightBookingService.repository.TicketRepository;
 import com.flightmanager.FlightBookingService.service.ITicketService;
 import com.flightmanager.FlightBookingService.specification.TicketSpecification;
@@ -73,6 +72,19 @@ public class TicketServiceImpl implements ITicketService {
         if (Duration.between(now, departureTime).toHours() < 12) {
             throw new RuntimeException("You can't buy a ticket less than 12 hours before the flight");
         }
+        if(ticket.getFlight().getDepartureTime().isAfter(ticket.getFlight().getArrivalTime())) {
+            throw new RuntimeException("Departure time can't be after arrival time");
+        }
+
+        if(ticket.isReturn() && ticket.getReturnFlight().getDepartureTime().isAfter(ticket.getReturnFlight().getArrivalTime())) {
+            throw new RuntimeException("Departure time can't be after arrival time");
+        }
+
+        if(ticket.isReturn() && ticket.getFlight().getArrivalTime().isAfter(ticket.getReturnFlight().getDepartureTime())) {
+            throw new RuntimeException("Return flight can't be before the arrival of the first flight");
+        }
+
+
 
         Flight flight = ticket.getFlight();
         Class ticketClass = ticket.getTicketClass();

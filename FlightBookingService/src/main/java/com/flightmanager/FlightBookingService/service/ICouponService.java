@@ -1,6 +1,5 @@
 package com.flightmanager.FlightBookingService.service;
 
-import com.flightmanager.FlightBookingService.domain.Coupon;
 import com.flightmanager.FlightBookingService.dto.CouponChangeActivityDto;
 import com.flightmanager.FlightBookingService.dto.CouponCreateDto;
 import com.flightmanager.FlightBookingService.dto.CouponDto;

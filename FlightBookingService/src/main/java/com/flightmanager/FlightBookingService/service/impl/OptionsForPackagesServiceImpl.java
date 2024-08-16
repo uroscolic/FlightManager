@@ -5,7 +5,6 @@ import com.flightmanager.FlightBookingService.dto.OptionsForPackagesCreateDto;
 import com.flightmanager.FlightBookingService.dto.OptionsForPackagesDto;
 import com.flightmanager.FlightBookingService.mapper.OptionsForPackagesMapper;
 import com.flightmanager.FlightBookingService.repository.OptionsForPackagesRepository;
-import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IOptionsForPackagesService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 @Getter
 @Setter

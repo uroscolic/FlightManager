@@ -30,6 +30,4 @@ public class Flight {
     private int availableBusinessSeats;
     private int availableFirstClassSeats;
 
-    //TODO da ima broj zauzetih sedista po klasi koji je najvise broj sedista po klasi aviona
-    //TODO dodati cancel i book za flight
 }
