@@ -9,16 +9,31 @@ import com.flightmanager.FlightBookingService.repository.FlightRepository;
 import com.flightmanager.FlightBookingService.repository.TicketRepository;
 import com.flightmanager.FlightBookingService.service.ITicketService;
 import com.flightmanager.FlightBookingService.specification.TicketSpecification;
+import com.flightmanager.FlightBookingService.userService.dto.ClientDto;
+import com.flightmanager.FlightBookingService.userService.dto.DecrementBookCountDto;
+import com.flightmanager.FlightBookingService.userService.dto.IncrementBookCountDto;
+import io.github.resilience4j.retry.Retry;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.flightmanager.FlightBookingService.listener.helper.MessageHelper;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.flightmanager.FlightBookingService.domain.Package;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -26,13 +41,35 @@ import java.time.LocalDateTime;
 @Setter
 @Service
 @Transactional
-@AllArgsConstructor
 public class TicketServiceImpl implements ITicketService {
 
     private TicketRepository ticketRepository;
     private TicketMapper ticketMapper;
     private FlightRepository flightRepository;
+    private RestTemplate userServiceRestTemplate;
+    private JmsTemplate jmsTemplate;
+    private String incrementBookCountDestination;
+    private String decrementReservationCountDestination;
+    private MessageHelper messageHelper;
+    private Retry userServiceRetry;
 
+
+    public TicketServiceImpl(TicketRepository ticketRepository, TicketMapper ticketMapper,
+                             FlightRepository flightRepository, RestTemplate userServiceRestTemplate,
+                             JmsTemplate jmsTemplate,
+                             @Value("${destination.incrementBookCount}") String incrementBookCountDestination,
+                             @Value("${destination.decrementBookCount}") String decrementReservationCountDestination,
+                             MessageHelper messageHelper, Retry userServiceRetry) {
+        this.ticketRepository = ticketRepository;
+        this.ticketMapper = ticketMapper;
+        this.flightRepository = flightRepository;
+        this.userServiceRestTemplate = userServiceRestTemplate;
+        this.jmsTemplate = jmsTemplate;
+        this.incrementBookCountDestination = incrementBookCountDestination;
+        this.decrementReservationCountDestination = decrementReservationCountDestination;
+        this.messageHelper = messageHelper;
+        this.userServiceRetry = userServiceRetry;
+    }
     @Override
     public Page<TicketDto> getTickets(String ownerEmail, Boolean isReturn, Passenger passenger,
                                       Flight flight, Flight returnFlight, Class ticketClass, Package _package,
@@ -58,6 +95,14 @@ public class TicketServiceImpl implements ITicketService {
                         TicketSpecification.withReturnFlightDepartureTimeBetween(returnFlightDepartureStart, returnFlightDepartureEnd) : null)
                 .and((returnFlightArrivalStart != null && returnFlightArrivalEnd != null) ?
                         TicketSpecification.withReturnFlightArrivalTimeBetween(returnFlightArrivalStart, returnFlightArrivalEnd) : null);
+
+        if(ticketMapper == null)
+            System.out.println("ticketMapper is null");
+        if(ticketRepository == null)
+            System.out.println("ticketRepository is null");
+        if(flightRepository == null)
+            System.out.println("flightRepository is null");
+
 
         return ticketRepository.findAll(spec, pageable).map(ticketMapper :: ticketToTicketDto);
     }
@@ -94,8 +139,16 @@ public class TicketServiceImpl implements ITicketService {
             flight = ticket.getReturnFlight();
             helperCreate(flight, ticketClass);
         }
+        ClientDto clientDto = Retry.decorateSupplier(userServiceRetry, () -> getClient(ticketCreateDto.getOwner().getEmail())).get();
+        if(clientDto == null) {
+            throw new RuntimeException("Client does not exist");
+        }
 
-        return ticketMapper.ticketToTicketDto(ticketRepository.save(ticket));
+
+        TicketDto ticketDto = ticketMapper.ticketToTicketDto(ticketRepository.save(ticket));
+        jmsTemplate.convertAndSend(incrementBookCountDestination, messageHelper.createTextMessage(new IncrementBookCountDto(clientDto.getId())));
+
+        return ticketDto;
     }
 
 
@@ -122,9 +175,35 @@ public class TicketServiceImpl implements ITicketService {
             flight = ticket.getReturnFlight();
             helper(ticketClass, flight);
         }
-
+        ClientDto clientDto = Retry.decorateSupplier(userServiceRetry, () -> getClient(ticket.getOwner().getEmail())).get();
+        if(clientDto == null) {
+            throw new RuntimeException("Client does not exist");
+        }
         ticketRepository.deleteById(id);
+        jmsTemplate.convertAndSend(decrementReservationCountDestination, messageHelper.createTextMessage(new DecrementBookCountDto(clientDto.getId())));
+
         return id;
+    }
+
+    private ClientDto getClient(String email)
+    {
+        ResponseEntity<ClientDto> clientDtoResponseEntity = null;
+        try {
+            clientDtoResponseEntity = userServiceRestTemplate.exchange("/client/email/" +
+                    email, HttpMethod.GET, null, ClientDto.class);
+            return clientDtoResponseEntity.getBody();
+        }
+
+        catch (HttpClientErrorException e)
+        {
+            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
+                throw new RuntimeException("Client does not exist");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("User service is unavailable");
+        }
+        return null;
     }
 
     private void helper(Class ticketClass, Flight flight) {
@@ -158,4 +237,5 @@ public class TicketServiceImpl implements ITicketService {
         }
         flightRepository.save(flight);
     }
+
 }

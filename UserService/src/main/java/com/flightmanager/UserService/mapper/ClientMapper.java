@@ -23,6 +23,7 @@ public class ClientMapper {
         clientDto.setEmail(client.getEmail());
         clientDto.setId(client.getId());
         clientDto.setIsBanned(client.getIsBanned());
+        clientDto.setNumberOfBookings(client.getNumberOfBookings());
         client.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_CLIENT).get());
         return clientDto;
     }

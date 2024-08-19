@@ -27,6 +27,13 @@ public class ClientController {
     public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findClientById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<ClientDto> findClientByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(userService.findClientByEmail(email), HttpStatus.OK);
+    }
+
+
     @GetMapping()
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<Page<UserDto>> findAllClients(@RequestHeader("Authorization") String authorization,

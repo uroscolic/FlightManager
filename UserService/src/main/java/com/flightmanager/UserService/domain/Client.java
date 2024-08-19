@@ -16,6 +16,6 @@ import lombok.Setter;
 public class Client extends User{
 
     private Boolean isBanned = false;
-
+    private Long numberOfBookings = 0L;
 
 }

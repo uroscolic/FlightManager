@@ -1,7 +1,6 @@
 package com.flightmanager.UserService.service;
 
 import com.flightmanager.UserService.domain.RoleType;
-import com.flightmanager.UserService.domain.User;
 import com.flightmanager.UserService.dto.*;
 import org.springframework.data.domain.Page;
 
@@ -11,6 +10,7 @@ public interface IUserService {
 
     Page<UserDto> findAll(Pageable pageable);
     ClientDto findClientById(Long id);
+    ClientDto findClientByEmail(String email);
     ManagerDto findManagerById(Long id);
     Page<UserDto> findAllOfRole(Pageable pageable, RoleType roleType);
     ClientDto registerClient(ClientCreateDto clientCreateDto);
@@ -18,4 +18,7 @@ public interface IUserService {
     ClientDto banClient(ClientBanDto clientBanDto);
     ManagerDto banManager(ManagerBanDto managerBanDto);
     TokenResponseDto login(TokenRequestDto tokenRequestDto);
+    void incrementReservationCount(IncrementBookCountDto incrementReservationCountDto);
+    void decrementReservationCount(DecrementBookCountDto decrementReservationCountDto);
+
 }

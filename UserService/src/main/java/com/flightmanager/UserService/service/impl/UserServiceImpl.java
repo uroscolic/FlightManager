@@ -53,6 +53,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public ClientDto findClientByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("Client not found"));
+        if(user instanceof Client client){
+            return clientMapper.clientToClientDto(client);
+        }
+        throw new RuntimeException("Client not found");
+    }
+
+    @Override
     public ManagerDto findManagerById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Manager not found"));
         if(user instanceof Manager manager){
@@ -125,5 +134,29 @@ public class UserServiceImpl implements IUserService {
         }
 
         return new TokenResponseDto(tokenService.generate(claims));
+    }
+
+    @Override
+    public void incrementReservationCount(IncrementBookCountDto incrementBookCountDto) {
+        User user = userRepository.findById(incrementBookCountDto.getUserId()).orElseThrow(() -> new RuntimeException("Client not found"));
+        if(user instanceof Client client){
+            client.setNumberOfBookings(client.getNumberOfBookings() + 1);
+            userRepository.save(user);
+        }
+        else {
+            throw new RuntimeException("Client not found");
+        }
+
+    }
+    @Override
+    public void decrementReservationCount(DecrementBookCountDto decrementBookCountDto) {
+        User user = userRepository.findById(decrementBookCountDto.getUserId()).orElseThrow(() -> new RuntimeException("Client not found"));
+        if(user instanceof Client client){
+            client.setNumberOfBookings(client.getNumberOfBookings() - 1);
+            userRepository.save(user);
+        }
+        else {
+            throw new RuntimeException("Client not found");
+        }
     }
 }

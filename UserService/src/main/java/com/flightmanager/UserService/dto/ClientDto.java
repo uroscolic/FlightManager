@@ -15,4 +15,5 @@ import lombok.Setter;
 public class ClientDto extends UserDto{
 
     private Boolean isBanned = false;
+    private Long numberOfBookings = 0L;
 }
