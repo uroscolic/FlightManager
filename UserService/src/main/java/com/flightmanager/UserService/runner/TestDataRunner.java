@@ -35,7 +35,7 @@ public class TestDataRunner implements CommandLineRunner {
         admin.setFirstName("Dusan");
         admin.setLastName("Colic");
         admin.setEmail("dusancolic07@gmail.com");
-        admin.setPassword("1234");
+        admin.setPassword("00000000");
         admin.setRole(adminRole);
 
         userRepository.save(admin);
@@ -44,7 +44,7 @@ public class TestDataRunner implements CommandLineRunner {
         manager.setFirstName("Uros");
         manager.setLastName("Colic");
         manager.setEmail("uroscolic02@gmail.com");
-        manager.setPassword("1234");
+        manager.setPassword("00000000");
         manager.setRole(managerRole);
 
 
@@ -54,7 +54,7 @@ public class TestDataRunner implements CommandLineRunner {
         client.setFirstName("Client");
         client.setLastName("Client");
         client.setEmail("client@gmail.com");
-        client.setPassword("1234");
+        client.setPassword("00000000");
         client.setRole(clientRole);
 
 

@@ -34,6 +34,7 @@ public class ClientController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<Page<UserDto>> findAllClients(@RequestHeader("Authorization") String authorization,
@@ -46,6 +47,7 @@ public class ClientController {
                                               @RequestBody ClientBanDto clientBanDto) {
         return new ResponseEntity<>(userService.banClient(clientBanDto), HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<ClientDto> registerClient(@RequestBody ClientCreateDto clientCreateDto) {
         return new ResponseEntity<>(userService.registerClient(clientCreateDto), HttpStatus.CREATED);

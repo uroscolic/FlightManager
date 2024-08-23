@@ -133,7 +133,7 @@ public class UserServiceImpl implements IUserService {
             throw new RuntimeException("Manager is banned");
         }
 
-        return new TokenResponseDto(tokenService.generate(claims));
+        return new TokenResponseDto(tokenService.generate(claims), user.getId(), user.getRole().getRoleType().toString(), user.getEmail(), user.getFirstName(), user.getLastName());
     }
 
     @Override
