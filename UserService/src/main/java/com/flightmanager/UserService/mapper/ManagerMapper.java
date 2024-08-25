@@ -23,7 +23,7 @@ public class ManagerMapper {
         managerDto.setEmail(manager.getEmail());
         managerDto.setId(manager.getId());
         managerDto.setIsBanned(manager.getIsBanned());
-        manager.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_MANAGER).get());
+        managerDto.setRoleType(RoleType.ROLE_MANAGER.toString());
         return managerDto;
     }
 

@@ -17,7 +17,7 @@ public class AdminMapper {
         adminDto.setLastName(admin.getLastName());
         adminDto.setEmail(admin.getEmail());
         adminDto.setId(admin.getId());
-        adminDto.setRole(new Role(RoleType.ROLE_ADMIN));
+        adminDto.setRoleType(RoleType.ROLE_ADMIN.toString());
 
         return adminDto;
     }

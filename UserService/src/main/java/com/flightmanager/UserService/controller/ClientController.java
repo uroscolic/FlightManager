@@ -41,6 +41,7 @@ public class ClientController {
                                                         Pageable pageable) {
         return new ResponseEntity<>(userService.findAllOfRole(pageable, RoleType.ROLE_CLIENT), HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/ban")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ClientDto> banClient(@RequestHeader("Authorization") String authorization,

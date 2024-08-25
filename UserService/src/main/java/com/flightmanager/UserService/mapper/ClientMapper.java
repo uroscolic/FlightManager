@@ -24,7 +24,7 @@ public class ClientMapper {
         clientDto.setId(client.getId());
         clientDto.setIsBanned(client.getIsBanned());
         clientDto.setNumberOfBookings(client.getNumberOfBookings());
-        client.setRole(roleRepository.findRoleByRoleType(RoleType.ROLE_CLIENT).get());
+        clientDto.setRoleType(RoleType.ROLE_CLIENT.toString());
         return clientDto;
     }
 

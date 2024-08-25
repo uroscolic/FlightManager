@@ -1,8 +1,6 @@
 package com.flightmanager.UserService.mapper;
 
-import com.flightmanager.UserService.domain.Role;
-import com.flightmanager.UserService.domain.RoleType;
-import com.flightmanager.UserService.domain.User;
+import com.flightmanager.UserService.domain.*;
 import com.flightmanager.UserService.dto.UserDto;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +15,18 @@ public class UserMapper {
         userDto.setEmail(user.getEmail());
         userDto.setId(user.getId());
 
-        if(user.getRole().getRoleType().equals(RoleType.ROLE_ADMIN))
-            userDto.setRole(new Role(RoleType.ROLE_ADMIN));
-        else if(user.getRole().getRoleType().equals(RoleType.ROLE_MANAGER))
-            userDto.setRole(new Role(RoleType.ROLE_MANAGER));
-        else
-            userDto.setRole(new Role(RoleType.ROLE_CLIENT));
+        if(user instanceof Admin) {
+            userDto.setRoleType(RoleType.ROLE_ADMIN.toString());
+            userDto.setBanned(false);
+        }
+        else if(user instanceof Manager manager) {
+            userDto.setRoleType(RoleType.ROLE_MANAGER.toString());
+            userDto.setBanned(manager.getIsBanned());
+        }
+        else {
+            userDto.setRoleType(RoleType.ROLE_CLIENT.toString());
+            userDto.setBanned(((Client) user).getIsBanned());
+        }
 
         return userDto;
     }

@@ -45,6 +45,7 @@ public class ManagerController {
         return new ResponseEntity<>(userService.registerManager(managerCreateDto), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/ban")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ManagerDto> banManager(@RequestHeader("Authorization") String authorization,
