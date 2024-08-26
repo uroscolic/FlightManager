@@ -21,6 +21,7 @@ public class PlaneController {
 
     private IPlaneService iPlaneService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<PlaneDto>> getPlanes(
             @RequestParam(required = false) String name,
