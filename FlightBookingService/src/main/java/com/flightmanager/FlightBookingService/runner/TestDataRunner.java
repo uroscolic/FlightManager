@@ -120,6 +120,27 @@ public class TestDataRunner implements CommandLineRunner {
         ticketRepository.save(ticket);
         ticketRepository.save(ticket1);
 
+        Coupon coupon = new Coupon();
+        coupon.setCouponCode("123");
+        coupon.setDiscount(10);
+        coupon.setActive(true);
+
+        couponRepository.save(coupon);
+
+        Option option = new Option();
+        option.setName("Option 1");
+        option.setPrice(10.0);
+
+        optionRepository.save(option);
+
+        OptionsForPackages optionsForPackages = new OptionsForPackages();
+        optionsForPackages.setOption(option);
+        optionsForPackages.set_package(_package);
+
+        optionsForPackagesRepository.save(optionsForPackages);
+
+
+
 
 
     }

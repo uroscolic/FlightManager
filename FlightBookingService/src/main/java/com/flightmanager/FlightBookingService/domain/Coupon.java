@@ -15,5 +15,5 @@ public class Coupon {
     @Id
     private String couponCode;
     private int discount;
-    private boolean isActive;
+    private boolean active;
 }

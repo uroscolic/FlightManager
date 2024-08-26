@@ -9,5 +9,5 @@ public class CouponDto {
 
     private String couponCode;
     private int discount;
-    private boolean isActive;
+    private boolean active;
 }

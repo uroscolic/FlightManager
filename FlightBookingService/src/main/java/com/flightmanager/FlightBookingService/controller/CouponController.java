@@ -21,6 +21,7 @@ public class CouponController {
     private ICouponService iCouponService;
     private CouponMapper couponMapper;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<Page<CouponDto>> getAllCoupons(@RequestHeader("Authorization") String authorization,
@@ -42,6 +43,7 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.createCoupon(couponCreateDto), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{couponCode}")
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> updateCoupon(@RequestHeader("Authorization") String authorization, @RequestBody CouponChangeActivityDto couponChangeActivityDto) {

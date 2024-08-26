@@ -31,7 +31,7 @@ public class CouponMapper {
             Coupon coupon = new Coupon();
             coupon.setDiscount(oldCoupon.getDiscount());
             coupon.setCouponCode(couponChangeActivityDto.getCouponCode());
-            coupon.setActive(couponChangeActivityDto.getIsActive());
+            coupon.setActive(couponChangeActivityDto.getActive());
             return coupon;
         }
 

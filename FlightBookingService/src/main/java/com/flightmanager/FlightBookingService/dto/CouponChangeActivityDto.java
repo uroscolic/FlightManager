@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class CouponChangeActivityDto {
     @NotBlank(message = "Coupon code cannot be empty")
     private String couponCode;
-    private Boolean isActive;
+    private Boolean active;
 }
