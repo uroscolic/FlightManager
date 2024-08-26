@@ -36,6 +36,7 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.getCouponByCouponCode(couponCode), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponCreateDto couponCreateDto,
