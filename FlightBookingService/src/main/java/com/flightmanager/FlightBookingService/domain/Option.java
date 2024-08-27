@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "package", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "option", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
