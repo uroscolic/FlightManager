@@ -35,6 +35,7 @@ public class LocationController {
     public ResponseEntity<Page<LocationDto>> getLocationsByCountry(@PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCountry(country,pageable), HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{city}/{country}")
     public ResponseEntity<Page<LocationDto>> getLocationsByCityAndCountry(@PathVariable("city") String city, @PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCityAndCountry(city,country,pageable), HttpStatus.OK);

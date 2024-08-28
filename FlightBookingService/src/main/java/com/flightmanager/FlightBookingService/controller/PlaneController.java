@@ -32,6 +32,7 @@ public class PlaneController {
         return new ResponseEntity<>(iPlaneService.getPlanes(name, businessSeats, firstClassSeats, economySeats, pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<PlaneDto> createPlane(@RequestHeader("Authorization") String authorization, @RequestBody PlaneCreateDto planeCreateDto) {
