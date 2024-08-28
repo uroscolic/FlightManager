@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class PackageCreateDto {
     @NotBlank(message = "Name cannot be empty")
     private String name;
+    private Double price;
 }

@@ -2,6 +2,7 @@ package com.flightmanager.FlightBookingService.controller;
 
 
 import com.flightmanager.FlightBookingService.dto.OptionsForPackagesCreateDto;
+import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IOptionsForPackagesService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ public class OptionsForPackagesController {
 
     private IOptionsForPackagesService optionsForPackagesService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<?> getOptionsForPackages(
             @RequestParam(required = false) String optionName,
@@ -32,8 +34,11 @@ public class OptionsForPackagesController {
         return ResponseEntity.ok(optionsForPackagesService.getByOptionName(optionName, pageable));
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
-    public ResponseEntity<?> createOptionsForPackages(@RequestBody OptionsForPackagesCreateDto optionsForPackagesCreateDto){
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
+    public ResponseEntity<?> createOptionsForPackages(@RequestBody OptionsForPackagesCreateDto optionsForPackagesCreateDto,
+                                                      @RequestHeader("Authorization") String authorization){
         return new ResponseEntity<>(optionsForPackagesService.createOptionsForPackages(optionsForPackagesCreateDto), HttpStatus.CREATED);
     }
 }

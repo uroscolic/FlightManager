@@ -13,6 +13,7 @@ public class PackageMapper {
         PackageDto packageDto = new PackageDto();
         packageDto.setId(_package.getId());
         packageDto.setName(_package.getName());
+        packageDto.setPrice(_package.getPrice());
         return packageDto;
     }
 
@@ -20,6 +21,7 @@ public class PackageMapper {
     {
         Package _package = new Package();
         _package.setName(packageCreateDto.getName());
+        _package.setPrice(packageCreateDto.getPrice());
         return _package;
     }
 }

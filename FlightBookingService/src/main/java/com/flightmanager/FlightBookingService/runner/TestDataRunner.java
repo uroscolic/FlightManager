@@ -42,6 +42,7 @@ public class TestDataRunner implements CommandLineRunner {
 
         Package _package = new Package();
         _package.setName("Package 1");
+        _package.setPrice(10.0);
 
         packageRepository.save(_package);
 
