@@ -19,6 +19,7 @@ public class LocationController {
 
     private ILocationService iLocationService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<LocationDto>> getAllLocations(Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getAllLocations(pageable), HttpStatus.OK);
