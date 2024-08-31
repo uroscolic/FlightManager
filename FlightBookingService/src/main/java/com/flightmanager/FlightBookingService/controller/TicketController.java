@@ -26,6 +26,7 @@ public class TicketController {
     private ITicketService iTicketService;
     private TokenService tokenService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_CLIENT", "ROLE_MANAGER", "ROLE_ADMIN"})
     public ResponseEntity<Page<TicketDto>> getTickets(

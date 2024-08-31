@@ -47,6 +47,7 @@ public class PlaneServiceImpl implements IPlaneService {
         return planeRepository.findAll(spec, pageable).map(planeMapper::planeToPlaneDto);
     }
 
+
     @Override
     public PlaneDto createPlane(PlaneCreateDto planeCreateDto) {
         return planeMapper.planeToPlaneDto(planeRepository.save(planeMapper.planeCreateDtoToPlane(planeCreateDto)));

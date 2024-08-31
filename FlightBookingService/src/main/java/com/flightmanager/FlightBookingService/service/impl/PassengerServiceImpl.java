@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class PassengerServiceImpl implements IPassengerService {
     private PassengerRepository passengerRepository;
     private PassengerMapper passengerMapper;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public Page<PassengerDto> getAll(Pageable pageable) {
         return passengerRepository.findAll(pageable).map(passengerMapper::passengerToPassengerDto);

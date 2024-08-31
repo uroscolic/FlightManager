@@ -17,6 +17,7 @@ public class PassengerController {
 
     private IPassengerService passengerService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<?> getAllPassengers(

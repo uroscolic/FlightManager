@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class LocationServiceImpl implements ILocationService {
     private LocationRepository locationRepository;
     private LocationMapper locationMapper;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public Page<LocationDto> getAllLocations(Pageable pageable) {
         return locationRepository.findAllLocations(pageable).map(locationMapper::locationToLocationDto);

@@ -32,6 +32,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -70,6 +71,7 @@ public class TicketServiceImpl implements ITicketService {
         this.messageHelper = messageHelper;
         this.userServiceRetry = userServiceRetry;
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public Page<TicketDto> getTickets(String ownerEmail, Boolean isReturn, Passenger passenger,
                                       Flight flight, Flight returnFlight, Class ticketClass, Package _package,
@@ -78,7 +80,9 @@ public class TicketServiceImpl implements ITicketService {
                                       LocalDateTime flightArrivalEnd, LocalDateTime returnFlightDepartureStart,
                                       LocalDateTime returnFlightDepartureEnd, LocalDateTime returnFlightArrivalStart,
                                       LocalDateTime returnFlightArrivalEnd, Pageable pageable) {
-        Specification<Ticket> spec = Specification.where(TicketSpecification.withOwner(ownerEmail))
+        Specification<Ticket> spec = Specification.where(null);
+
+                spec = spec.and(ownerEmail != null ? TicketSpecification.withOwner(ownerEmail) : null)
                 .and(isReturn != null ? TicketSpecification.isReturn(isReturn) : null)
                 .and(passenger != null ? TicketSpecification.withPassenger(passenger) : null)
                 .and(flight != null ? TicketSpecification.withFlight(flight) : null)
@@ -107,6 +111,7 @@ public class TicketServiceImpl implements ITicketService {
         return ticketRepository.findAll(spec, pageable).map(ticketMapper :: ticketToTicketDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public TicketDto createTicket(TicketCreateDto ticketCreateDto) {
         Ticket ticket = ticketMapper.ticketCreateDtoToTicket(ticketCreateDto);

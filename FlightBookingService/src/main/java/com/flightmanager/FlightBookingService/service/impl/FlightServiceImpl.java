@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 
@@ -31,6 +32,7 @@ public class FlightServiceImpl implements IFlightService {
     private FlightRepository flightRepository;
     private FlightMapper flightMapper;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public Page<FlightDto> getFlights(Plane plane, Airport origin, Airport destination, String gate, LocalDateTime departureStart, LocalDateTime departureEnd, LocalDateTime arrivalStart, LocalDateTime arrivalEnd,
                                       Double fromPrice, Double toPrice, Pageable pageable) {
@@ -48,6 +50,7 @@ public class FlightServiceImpl implements IFlightService {
         return flightRepository.findAll(spec, pageable).map(flightMapper::flightToFlightDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
     public FlightDto createFlight(FlightCreateDto flightCreateDto) {
         Flight flight = flightMapper.flightCreateDtoToFlight(flightCreateDto);
