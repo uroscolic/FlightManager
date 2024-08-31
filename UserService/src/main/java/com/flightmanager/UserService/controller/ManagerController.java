@@ -1,10 +1,7 @@
 package com.flightmanager.UserService.controller;
 
 import com.flightmanager.UserService.domain.RoleType;
-import com.flightmanager.UserService.dto.ManagerBanDto;
-import com.flightmanager.UserService.dto.ManagerCreateDto;
-import com.flightmanager.UserService.dto.ManagerDto;
-import com.flightmanager.UserService.dto.UserDto;
+import com.flightmanager.UserService.dto.*;
 import com.flightmanager.UserService.security.CheckSecurity;
 import com.flightmanager.UserService.security.service.TokenService;
 import com.flightmanager.UserService.service.IUserService;
@@ -38,6 +35,8 @@ public class ManagerController {
                                                   @PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.findManagerById(id));
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ManagerDto> registerManager(@RequestHeader("Authorization") String authorization,
@@ -51,5 +50,13 @@ public class ManagerController {
     public ResponseEntity<ManagerDto> banManager(@RequestHeader("Authorization") String authorization,
                                                  @RequestBody ManagerBanDto managerBanDto) {
         return new ResponseEntity<>(userService.banManager(managerBanDto), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/change-password")
+    @CheckSecurity(roles = {"ROLE_MANAGER"})
+    public ResponseEntity<UserDto> changePassword(@RequestHeader("Authorization") String authorization,
+                                                  @RequestBody ManagerChangePasswordDto managerChangePasswordDto) {
+        return new ResponseEntity<>(userService.changeManagerPassword(managerChangePasswordDto), HttpStatus.OK);
     }
 }

@@ -114,6 +114,20 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public ManagerDto changeManagerPassword(ManagerChangePasswordDto managerChangePasswordDto) {
+        User user = userRepository.findById(managerChangePasswordDto.getId()).orElseThrow(() -> new RuntimeException("Manager not found"));
+        if(user instanceof Manager manager){
+            if(!manager.getPassword().equals(managerChangePasswordDto.getOldPassword())){
+                throw new RuntimeException("Old password is incorrect");
+            }
+            manager = managerMapper.managerChangePasswordDtoToManager(manager, managerChangePasswordDto);
+            userRepository.save(manager);
+            return managerMapper.managerToManagerDto(manager);
+        }
+        throw new RuntimeException("Manager not found");
+    }
+
+    @Override
     public TokenResponseDto login(TokenRequestDto tokenRequestDto) {
         User user = userRepository
                 .findByEmailAndPassword(tokenRequestDto.getEmail(), tokenRequestDto.getPassword())

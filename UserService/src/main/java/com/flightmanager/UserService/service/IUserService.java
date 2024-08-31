@@ -17,6 +17,7 @@ public interface IUserService {
     ManagerDto registerManager(ManagerCreateDto managerCreateDto);
     ClientDto banClient(ClientBanDto clientBanDto);
     ManagerDto banManager(ManagerBanDto managerBanDto);
+    ManagerDto changeManagerPassword(ManagerChangePasswordDto managerChangePasswordDto);
     TokenResponseDto login(TokenRequestDto tokenRequestDto);
     void incrementReservationCount(IncrementBookCountDto incrementReservationCountDto);
     void decrementReservationCount(DecrementBookCountDto decrementReservationCountDto);

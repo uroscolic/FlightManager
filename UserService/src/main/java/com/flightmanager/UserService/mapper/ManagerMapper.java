@@ -3,6 +3,7 @@ package com.flightmanager.UserService.mapper;
 import com.flightmanager.UserService.domain.Manager;
 import com.flightmanager.UserService.domain.RoleType;
 import com.flightmanager.UserService.dto.ManagerBanDto;
+import com.flightmanager.UserService.dto.ManagerChangePasswordDto;
 import com.flightmanager.UserService.dto.ManagerCreateDto;
 import com.flightmanager.UserService.dto.ManagerDto;
 import com.flightmanager.UserService.repository.RoleRepository;
@@ -42,6 +43,12 @@ public class ManagerMapper {
     public Manager managerBanDtoToManager(Manager manager, ManagerBanDto managerBanDto)
     {
         manager.setIsBanned(managerBanDto.isBanned());
+        return manager;
+    }
+
+    public Manager managerChangePasswordDtoToManager(Manager manager, ManagerChangePasswordDto managerChangePasswordDto)
+    {
+        manager.setPassword(managerChangePasswordDto.getNewPassword());
         return manager;
     }
 
