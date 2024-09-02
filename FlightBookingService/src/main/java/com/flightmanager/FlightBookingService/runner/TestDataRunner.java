@@ -86,7 +86,6 @@ public class TestDataRunner implements CommandLineRunner {
 
         Flight flight = new Flight();
         flight.setPlane(plane);
-        System.out.println(flight.getAvailableEconomySeats());
         flight.setOrigin(airport);
         flight.setDestination(airport1);
         flight.setGate("A1");

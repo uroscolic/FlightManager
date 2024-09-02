@@ -23,6 +23,7 @@ public class FlightController {
 
     private IFlightService flightService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<FlightDto>> getFlights(
             @RequestParam(required = false) Plane plane,
@@ -39,6 +40,7 @@ public class FlightController {
         return new ResponseEntity<>(flightService.getFlights(plane, origin, destination, gate, departureStart, departureEnd, arrivalStart, arrivalEnd, fromPrice, toPrice, pageable), org.springframework.http.HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<FlightDto> createFlight(

@@ -29,6 +29,7 @@ public class TicketMapper {
         PackageDto _package = new PackageDto();
         _package.setId(ticket.get_package().getId());
         _package.setName(ticket.get_package().getName());
+        _package.setPrice(ticket.get_package().getPrice());
 
         ticketDto.set_package(_package);
         ticketDto.setFlight(flightMapper.flightToFlightDto(ticket.getFlight()));
@@ -52,6 +53,7 @@ public class TicketMapper {
         Package _package = new Package();
         _package.setId(ticketCreateDto.get_package().getId());
         _package.setName(ticketCreateDto.get_package().getName());
+        _package.setPrice(ticketCreateDto.get_package().getPrice());
 
         ticket.set_package(_package);
         ticket.setFlight(flightMapper.getFlightFromDto(ticketCreateDto.getFlight()));

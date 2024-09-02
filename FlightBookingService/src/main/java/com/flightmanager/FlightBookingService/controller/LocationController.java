@@ -41,6 +41,7 @@ public class LocationController {
     public ResponseEntity<Page<LocationDto>> getLocationsByCityAndCountry(@PathVariable("city") String city, @PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCityAndCountry(city,country,pageable), HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<LocationDto> createLocation(@RequestHeader("Authorization") String authorization, @RequestBody LocationCreateDto locationCreateDto) {
