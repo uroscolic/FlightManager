@@ -34,9 +34,9 @@ public class TestDataRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Passenger passenger = new Passenger();
-        passenger.setFirstName("Uros");
-        passenger.setLastName("Colic");
-        passenger.setEmail("uroscolic02@gmail.com");
+        passenger.setFirstName("Client");
+        passenger.setLastName("Client");
+        passenger.setEmail("client@gmail.com");
 
         passengerRepository.save(passenger);
 
@@ -91,6 +91,9 @@ public class TestDataRunner implements CommandLineRunner {
         flight.setGate("A1");
         flight.setDepartureTime(LocalDateTime.now());
         flight.setArrivalTime(LocalDateTime.now().plusHours(1));
+        flight.setAvailableEconomySeats(11);
+        flight.setAvailableBusinessSeats(11);
+        flight.setAvailableFirstClassSeats(11);
         flight.setPrice(100.0);
 
         flightRepository.save(flight);
