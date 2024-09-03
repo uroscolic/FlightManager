@@ -82,9 +82,6 @@ public class FlightMapper {
         flight.setDepartureTime(flightCreateDto.getDepartureTime());
         flight.setArrivalTime(flightCreateDto.getArrivalTime());
         flight.setPrice(flightCreateDto.getPrice());
-        flight.setAvailableEconomySeats(flightCreateDto.getAvailableEconomySeats());
-        flight.setAvailableBusinessSeats(flightCreateDto.getAvailableBusinessSeats());
-        flight.setAvailableFirstClassSeats(flightCreateDto.getAvailableFirstClassSeats());
         return flight;
     }
 
