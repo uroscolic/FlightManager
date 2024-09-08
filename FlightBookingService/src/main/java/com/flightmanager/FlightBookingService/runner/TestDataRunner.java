@@ -87,8 +87,8 @@ public class TestDataRunner implements CommandLineRunner {
         flight.setOrigin(airport);
         flight.setDestination(airport1);
         flight.setGate("A1");
-        flight.setDepartureTime(LocalDateTime.now());
-        flight.setArrivalTime(LocalDateTime.now().plusHours(1));
+        flight.setDepartureTime(LocalDateTime.now().plusMonths(1));
+        flight.setArrivalTime(LocalDateTime.now().plusMonths(1).plusHours(1));
         flight.setAvailableEconomySeats(11);
         flight.setAvailableBusinessSeats(11);
         flight.setAvailableFirstClassSeats(11);
@@ -101,7 +101,7 @@ public class TestDataRunner implements CommandLineRunner {
         ticket.setPassenger(passenger);
         ticket.setSeatNumber(1);
         ticket.setTicketClass(Class.ECONOMY);
-        ticket.setReturn(false);
+        ticket.set_return(false);
         ticket.set_package(_package);
         ticket.setTotalPrice(100.0);
         ticket.setOwner(passenger);
@@ -111,7 +111,7 @@ public class TestDataRunner implements CommandLineRunner {
         ticket1.setPassenger(passenger);
         ticket1.setSeatNumber(2);
         ticket1.setTicketClass(Class.BUSINESS);
-        ticket1.setReturn(false);
+        ticket1.set_return(false);
         ticket1.set_package(_package);
         ticket1.setTotalPrice(200.0);
         ticket1.setOwner(passenger);

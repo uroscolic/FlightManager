@@ -20,7 +20,7 @@ public class Ticket {
     private Passenger passenger;
     private int seatNumber;
     private Class ticketClass;
-    private boolean isReturn = false;
+    private boolean _return = false;
     @ManyToOne(optional = false)
     private Package _package;
     @ManyToOne(optional = false)

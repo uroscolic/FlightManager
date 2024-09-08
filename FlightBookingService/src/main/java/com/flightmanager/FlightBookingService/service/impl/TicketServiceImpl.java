@@ -14,13 +14,10 @@ import com.flightmanager.FlightBookingService.userService.dto.DecrementBookCount
 import com.flightmanager.FlightBookingService.userService.dto.IncrementBookCountDto;
 import io.github.resilience4j.retry.Retry;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.flightmanager.FlightBookingService.listener.helper.MessageHelper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -126,11 +123,11 @@ public class TicketServiceImpl implements ITicketService {
             throw new RuntimeException("Departure time can't be after arrival time");
         }
 
-        if(ticket.isReturn() && ticket.getReturnFlight().getDepartureTime().isAfter(ticket.getReturnFlight().getArrivalTime())) {
+        if(ticket.is_return() && ticket.getReturnFlight().getDepartureTime().isAfter(ticket.getReturnFlight().getArrivalTime())) {
             throw new RuntimeException("Departure time can't be after arrival time");
         }
 
-        if(ticket.isReturn() && ticket.getFlight().getArrivalTime().isAfter(ticket.getReturnFlight().getDepartureTime())) {
+        if(ticket.is_return() && ticket.getFlight().getArrivalTime().isAfter(ticket.getReturnFlight().getDepartureTime())) {
             throw new RuntimeException("Return flight can't be before the arrival of the first flight");
         }
 
@@ -140,7 +137,7 @@ public class TicketServiceImpl implements ITicketService {
         Class ticketClass = ticket.getTicketClass();
         helperCreate(flight, ticketClass);
 
-        if(ticket.isReturn()) {
+        if(ticket.is_return()) {
             flight = ticket.getReturnFlight();
             helperCreate(flight, ticketClass);
         }
@@ -176,7 +173,7 @@ public class TicketServiceImpl implements ITicketService {
         Flight flight = ticket.getFlight();
         helper(ticketClass, flight);
 
-        if(ticket.isReturn()) {
+        if(ticket.is_return()) {
             flight = ticket.getReturnFlight();
             helper(ticketClass, flight);
         }

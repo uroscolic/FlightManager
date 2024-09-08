@@ -24,7 +24,7 @@ public class TicketMapper {
         ticketDto.setPassenger(passengerMapper.passengerToPassengerDto(ticket.getPassenger()));
         ticketDto.setSeatNumber(ticket.getSeatNumber());
         ticketDto.setTicketClass(ticket.getTicketClass());
-        ticketDto.setReturn(ticket.isReturn());
+        ticketDto.set_return(ticket.is_return());
 
         PackageDto _package = new PackageDto();
         _package.setId(ticket.get_package().getId());
@@ -48,7 +48,10 @@ public class TicketMapper {
         ticket.setPassenger(passengerMapper.getPassengerFromDto(ticketCreateDto.getPassenger()));
         ticket.setSeatNumber(ticketCreateDto.getSeatNumber());
         ticket.setTicketClass(ticketCreateDto.getTicketClass());
-        ticket.setReturn(ticketCreateDto.isReturn());
+        ticket.set_return(ticketCreateDto.is_return());
+        System.out.println("TicketCreateDto-Return: " + ticketCreateDto.is_return());
+        System.out.println("TicketCreateDto: " + ticketCreateDto);
+        System.out.println("Ticket: " + ticket.is_return());
 
         Package _package = new Package();
         _package.setId(ticketCreateDto.get_package().getId());

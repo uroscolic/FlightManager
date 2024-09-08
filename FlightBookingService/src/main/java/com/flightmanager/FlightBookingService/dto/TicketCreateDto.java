@@ -13,7 +13,7 @@ public class TicketCreateDto {
     private PassengerDto passenger;
     private int seatNumber;
     private Class ticketClass;
-    private boolean isReturn;
+    private boolean _return;
     private PackageDto _package;
     private FlightDto flight;
     private FlightDto returnFlight;

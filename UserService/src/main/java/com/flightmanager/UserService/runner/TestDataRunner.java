@@ -56,6 +56,7 @@ public class TestDataRunner implements CommandLineRunner {
         client.setEmail("client@gmail.com");
         client.setPassword("00000000");
         client.setRole(clientRole);
+        client.setNumberOfBookings(2L);
 
 
         userRepository.save(client);
