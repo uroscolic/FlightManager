@@ -61,13 +61,11 @@ public class TestDataRunner implements CommandLineRunner {
         Location location = new Location();
         location.setCountry("Serbia");
         location.setCity("Belgrade");
-        location.setImagePath("imagePath");
         location.setShortName("SRB-BG");
 
         Location location1 = new Location();
         location1.setCountry("Serbia");
         location1.setCity("Novi Sad");
-        location1.setImagePath("imagePath");
         location1.setShortName("SRB-NS");
 
         locationRepository.save(location);

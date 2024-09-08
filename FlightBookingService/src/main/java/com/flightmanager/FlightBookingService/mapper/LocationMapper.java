@@ -14,7 +14,6 @@ public class LocationMapper {
         locationDto.setCountry(location.getCountry());
         locationDto.setCity(location.getCity());
         locationDto.setShortName(location.getShortName());
-        locationDto.setImagePath(location.getImagePath());
         return locationDto;
     }
 
@@ -23,7 +22,6 @@ public class LocationMapper {
         location.setCountry(locationCreateDto.getCountry());
         location.setCity(locationCreateDto.getCity());
         location.setShortName(locationCreateDto.getShortName());
-        location.setImagePath(locationCreateDto.getImagePath());
         return location;
     }
 }

@@ -15,5 +15,4 @@ public class LocationCreateDto {
     private String city;
     @NotBlank(message = "Short name cannot be empty")
     private String shortName;
-    private String imagePath;
 }

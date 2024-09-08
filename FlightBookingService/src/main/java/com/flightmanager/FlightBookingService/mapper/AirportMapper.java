@@ -30,7 +30,6 @@ public class AirportMapper {
 
         Location location = new Location();
         location.setId(airportCreateDto.getLocation().getId());
-        location.setImagePath(airportCreateDto.getLocation().getImagePath());
         location.setShortName(airportCreateDto.getLocation().getShortName());
         location.setCountry(airportCreateDto.getLocation().getCountry());
         location.setCity(airportCreateDto.getLocation().getCity());
@@ -49,7 +48,6 @@ public class AirportMapper {
         location.setCity(airportDto.getLocation().getCity());
         location.setCountry(airportDto.getLocation().getCountry());
         location.setShortName(airportDto.getLocation().getShortName());
-        location.setImagePath(airportDto.getLocation().getImagePath());
         airport.setLocation(location);
         return airport;
     }

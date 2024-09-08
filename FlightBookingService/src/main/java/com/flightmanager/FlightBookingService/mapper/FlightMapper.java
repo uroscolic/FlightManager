@@ -54,7 +54,6 @@ public class FlightMapper {
         originLocation.setId(flightCreateDto.getOrigin().getLocation().getId());
         originLocation.setCity(flightCreateDto.getOrigin().getLocation().getCity());
         originLocation.setCountry(flightCreateDto.getOrigin().getLocation().getCountry());
-        originLocation.setImagePath(flightCreateDto.getOrigin().getLocation().getImagePath());
         originLocation.setShortName(flightCreateDto.getOrigin().getLocation().getShortName());
 
         origin.setLocation(originLocation);
@@ -70,7 +69,6 @@ public class FlightMapper {
         destinationLocation.setId(flightCreateDto.getDestination().getLocation().getId());
         destinationLocation.setCity(flightCreateDto.getDestination().getLocation().getCity());
         destinationLocation.setCountry(flightCreateDto.getDestination().getLocation().getCountry());
-        destinationLocation.setImagePath(flightCreateDto.getDestination().getLocation().getImagePath());
         destinationLocation.setShortName(flightCreateDto.getDestination().getLocation().getShortName());
 
         destination.setLocation(destinationLocation);
@@ -107,7 +105,6 @@ public class FlightMapper {
         originLocation.setId(oldFlight.getOrigin().getLocation().getId());
         originLocation.setCity(oldFlight.getOrigin().getLocation().getCity());
         originLocation.setCountry(oldFlight.getOrigin().getLocation().getCountry());
-        originLocation.setImagePath(oldFlight.getOrigin().getLocation().getImagePath());
         originLocation.setShortName(oldFlight.getOrigin().getLocation().getShortName());
 
         origin.setLocation(originLocation);
@@ -123,7 +120,6 @@ public class FlightMapper {
         destinationLocation.setId(oldFlight.getDestination().getLocation().getId());
         destinationLocation.setCity(oldFlight.getDestination().getLocation().getCity());
         destinationLocation.setCountry(oldFlight.getDestination().getLocation().getCountry());
-        destinationLocation.setImagePath(oldFlight.getDestination().getLocation().getImagePath());
         destinationLocation.setShortName(oldFlight.getDestination().getLocation().getShortName());
 
         destination.setLocation(destinationLocation);

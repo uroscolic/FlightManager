@@ -12,5 +12,4 @@ public class LocationDto {
     private String country;
     private String city;
     private String shortName;
-    private String imagePath;
 }
