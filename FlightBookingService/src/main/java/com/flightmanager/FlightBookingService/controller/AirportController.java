@@ -37,6 +37,12 @@ public class AirportController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}")
+    public ResponseEntity<AirportDto> getAirportById(@PathVariable Long id) {
+        return new ResponseEntity<>(airportService.getAirportById(id), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<AirportDto> createAirport(
@@ -45,6 +51,7 @@ public class AirportController {
         return new ResponseEntity<>(airportService.createAirport(airportCreateDto), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<AirportDto> updateAirport(

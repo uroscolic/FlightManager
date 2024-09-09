@@ -14,4 +14,5 @@ public interface IAirportService {
     AirportDto getAirportByLocationShortNameAndName(String shortName, String name);
     AirportDto createAirport(AirportCreateDto airportCreateDto);
     AirportDto updateAirportName(AirportChangeNameDto airportChangeNameDto);
+    AirportDto getAirportById(Long id);
 }

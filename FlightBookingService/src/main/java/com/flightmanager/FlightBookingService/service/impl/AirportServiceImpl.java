@@ -30,6 +30,10 @@ public class AirportServiceImpl implements IAirportService {
         return airportRepository.findAllAirports(pageable).map(airportMapper::airportToAirportDto);
     }
 
+    public AirportDto getAirportById(Long id) {
+        return airportRepository.findById(id).map(airportMapper::airportToAirportDto).orElseThrow(() -> new RuntimeException("Airport not found"));
+    }
+
     @Override
     public Page<AirportDto> getAirportsByName(String name, Pageable pageable) {
         return airportRepository.findAirportsByName(name, pageable).map(airportMapper::airportToAirportDto);
