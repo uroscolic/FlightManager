@@ -65,6 +65,7 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public FlightDto updateFlight(FlightDto oldFlight, FlightChangeDto flightChangeDto) {
         Flight flight = flightMapper.flightChangeDtoToFlight(oldFlight, flightChangeDto);
+        System.out.println(flight + "service impl");
         flightRepository.save(flight);
         return flightMapper.flightToFlightDto(flight);
     }

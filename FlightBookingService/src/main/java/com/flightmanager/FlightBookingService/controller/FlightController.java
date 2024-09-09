@@ -49,6 +49,7 @@ public class FlightController {
         return new ResponseEntity<>(flightService.createFlight(flightCreateDto), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{id}")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<FlightDto> updateFlight(
@@ -56,7 +57,16 @@ public class FlightController {
             @PathVariable("id") Long id, @RequestBody FlightChangeDto flightChangeDto){
 
         FlightDto oldFlight = flightService.getFlightById(id);
+        System.out.println(oldFlight + "contr old");
+        System.out.println(flightChangeDto + " dto contr");
+
         return new ResponseEntity<>(flightService.updateFlight(oldFlight, flightChangeDto), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}")
+    public ResponseEntity<FlightDto> getFlightById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(flightService.getFlightById(id), HttpStatus.OK);
     }
 
 }
