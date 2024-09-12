@@ -61,6 +61,7 @@ public class TicketController {
                 returnFlightArrivalStart, returnFlightArrivalEnd, pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketCreateDto ticketCreateDto){
         return new ResponseEntity<>(iTicketService.createTicket(ticketCreateDto), HttpStatus.CREATED);

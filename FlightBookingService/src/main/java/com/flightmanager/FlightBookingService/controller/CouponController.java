@@ -29,6 +29,7 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.getAllCoupons(pageable), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{coupon-code}")
     //@CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> getCouponByCouponCode(//@RequestHeader("Authorization") String authorization,
