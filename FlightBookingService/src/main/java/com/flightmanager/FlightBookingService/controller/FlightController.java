@@ -5,6 +5,7 @@ import com.flightmanager.FlightBookingService.domain.Plane;
 import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
 import com.flightmanager.FlightBookingService.dto.FlightCreateDto;
 import com.flightmanager.FlightBookingService.dto.FlightDto;
+import com.flightmanager.FlightBookingService.dto.FlightSearchDto;
 import com.flightmanager.FlightBookingService.security.CheckSecurity;
 import com.flightmanager.FlightBookingService.service.IFlightService;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,19 @@ public class FlightController {
             @RequestHeader("Authorization") String authorization,
             @RequestBody FlightCreateDto flightCreateDto) {
         return new ResponseEntity<>(flightService.createFlight(flightCreateDto), HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/search")
+    public ResponseEntity<Page<FlightDto>> searchFlights(
+            @RequestBody FlightSearchDto flightSearchDto,
+            Pageable pageable) {
+        System.out.println(flightSearchDto + " controller");
+
+        return new ResponseEntity<>(flightService.getFlightsForSearch(
+                flightSearchDto,
+                pageable),
+                org.springframework.http.HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

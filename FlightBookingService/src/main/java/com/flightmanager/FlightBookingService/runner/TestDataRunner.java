@@ -94,7 +94,22 @@ public class TestDataRunner implements CommandLineRunner {
         flight.setAvailableFirstClassSeats(11);
         flight.setPrice(100.0);
 
+
+        Flight returnFlight = new Flight();
+        returnFlight.setPlane(plane);
+        returnFlight.setOrigin(airport1);
+        returnFlight.setDestination(airport);
+        returnFlight.setGate("A4");
+        returnFlight.setDepartureTime(LocalDateTime.now().plusMonths(2));
+        returnFlight.setArrivalTime(LocalDateTime.now().plusMonths(2).plusHours(1));
+        returnFlight.setAvailableEconomySeats(11);
+        returnFlight.setAvailableBusinessSeats(11);
+        returnFlight.setAvailableFirstClassSeats(11);
+        returnFlight.setPrice(100.0);
+
+
         flightRepository.save(flight);
+        flightRepository.save(returnFlight);
 
         Ticket ticket = new Ticket();
         ticket.setFlight(flight);

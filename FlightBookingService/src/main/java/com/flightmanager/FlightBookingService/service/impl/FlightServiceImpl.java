@@ -1,11 +1,13 @@
 package com.flightmanager.FlightBookingService.service.impl;
 
 import com.flightmanager.FlightBookingService.domain.Airport;
+import com.flightmanager.FlightBookingService.domain.Class;
 import com.flightmanager.FlightBookingService.domain.Flight;
 import com.flightmanager.FlightBookingService.domain.Plane;
 import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
 import com.flightmanager.FlightBookingService.dto.FlightCreateDto;
 import com.flightmanager.FlightBookingService.dto.FlightDto;
+import com.flightmanager.FlightBookingService.dto.FlightSearchDto;
 import com.flightmanager.FlightBookingService.mapper.FlightMapper;
 import com.flightmanager.FlightBookingService.repository.FlightRepository;
 import com.flightmanager.FlightBookingService.service.IFlightService;
@@ -73,6 +75,25 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public FlightDto getFlightById(Long id) {
         return flightMapper.flightToFlightDto(flightRepository.findById(id).orElseThrow(() -> new RuntimeException("Flight not found")));
+    }
+
+    @Override
+    public Page<FlightDto> getFlightsForSearch(FlightSearchDto flightSearchDto, Pageable pageable) {
+        System.out.println(flightSearchDto + "service impl");
+        Specification<Flight> spec = Specification.where(flightSearchDto.getOrigin() != null ? FlightSpecification.fromOrigin(flightSearchDto.getOrigin()) : null)
+                .and(flightSearchDto.getDestination() != null ? FlightSpecification.toDestination(flightSearchDto.getDestination()) : null)
+                .and((flightSearchDto.getDepartureStart() != null) ?
+                        FlightSpecification.withDepartureStartAt(flightSearchDto.getDepartureStart()) : null)
+                .and((flightSearchDto.getArrivalEnd() != null) ?
+                        FlightSpecification.withArrivalEndAt(flightSearchDto.getArrivalEnd()) : null)
+                .and((flightSearchDto.getFlightClass() != null && flightSearchDto.getFlightClass().equals(Class.BUSINESS)) ?
+                        FlightSpecification.withAvailableBusinessSeats(flightSearchDto.getPassengers()) : null)
+                .and((flightSearchDto.getFlightClass() != null && flightSearchDto.getFlightClass().equals(Class.ECONOMY)) ?
+                        FlightSpecification.withAvailableEconomySeats(flightSearchDto.getPassengers()) : null)
+                .and((flightSearchDto.getFlightClass() != null && flightSearchDto.getFlightClass().equals(Class.FIRST)) ?
+                        FlightSpecification.withAvailableFirstClassSeats(flightSearchDto.getPassengers()) : null);
+
+        return flightRepository.findAll(spec, pageable).map(flightMapper::flightToFlightDto);
     }
 
 

@@ -5,6 +5,7 @@ import com.flightmanager.FlightBookingService.domain.Plane;
 import com.flightmanager.FlightBookingService.dto.FlightChangeDto;
 import com.flightmanager.FlightBookingService.dto.FlightCreateDto;
 import com.flightmanager.FlightBookingService.dto.FlightDto;
+import com.flightmanager.FlightBookingService.dto.FlightSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,4 +20,5 @@ public interface IFlightService {
      FlightDto createFlight(FlightCreateDto flightCreateDto);
      FlightDto updateFlight(FlightDto oldFlight, FlightChangeDto flightChangeDto);
      FlightDto getFlightById(Long id);
+     Page<FlightDto> getFlightsForSearch(FlightSearchDto flightSearchDto, Pageable pageable);
 }

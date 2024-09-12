@@ -21,8 +21,6 @@ public class FlightMapper {
         flightDto.setOrigin(airportMapper.airportToAirportDto(flight.getOrigin()));
         flightDto.setDestination(airportMapper.airportToAirportDto(flight.getDestination()));
 
-
-
         flightDto.setGate(flight.getGate());
         flightDto.setDepartureTime(flight.getDepartureTime());
         flightDto.setArrivalTime(flight.getArrivalTime());
