@@ -23,6 +23,7 @@ public class TicketMapper {
         ticketDto.setOwner(passengerMapper.passengerToPassengerDto(ticket.getOwner()));
         ticketDto.setPassenger(passengerMapper.passengerToPassengerDto(ticket.getPassenger()));
         ticketDto.setSeatNumber(ticket.getSeatNumber());
+        ticketDto.setReturnSeatNumber(ticket.getReturnSeatNumber());
         ticketDto.setTicketClass(ticket.getTicketClass());
         ticketDto.set_return(ticket.is_return());
 
@@ -47,6 +48,7 @@ public class TicketMapper {
         ticket.setOwner(passengerMapper.getPassengerFromDto(ticketCreateDto.getOwner()));
         ticket.setPassenger(passengerMapper.getPassengerFromDto(ticketCreateDto.getPassenger()));
         ticket.setSeatNumber(ticketCreateDto.getSeatNumber());
+        ticket.setReturnSeatNumber(ticketCreateDto.getReturnSeatNumber());
         ticket.setTicketClass(ticketCreateDto.getTicketClass());
         ticket.set_return(ticketCreateDto.is_return());
         System.out.println("TicketCreateDto-Return: " + ticketCreateDto.is_return());

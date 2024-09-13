@@ -19,6 +19,7 @@ public class Ticket {
     @ManyToOne(optional = false)
     private Passenger passenger;
     private int seatNumber;
+    private int returnSeatNumber;
     private Class ticketClass;
     private boolean _return = false;
     @ManyToOne(optional = false)

@@ -13,6 +13,7 @@ public class TicketDto {
     private PassengerDto owner;
     private PassengerDto passenger;
     private int seatNumber;
+    private int returnSeatNumber;
     private Class ticketClass;
     private boolean _return;
     private PackageDto _package;
