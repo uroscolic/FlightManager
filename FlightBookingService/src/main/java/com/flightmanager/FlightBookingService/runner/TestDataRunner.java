@@ -111,30 +111,6 @@ public class TestDataRunner implements CommandLineRunner {
         flightRepository.save(flight);
         flightRepository.save(returnFlight);
 
-        Ticket ticket = new Ticket();
-        ticket.setFlight(flight);
-        ticket.setPassenger(passenger);
-        ticket.setSeatNumber(1);
-        ticket.setTicketClass(Class.ECONOMY);
-        ticket.set_return(false);
-        ticket.set_package(_package);
-        ticket.setTotalPrice(100.0);
-        ticket.setOwner(passenger);
-
-        Ticket ticket1 = new Ticket();
-        ticket1.setFlight(flight);
-        ticket1.setPassenger(passenger);
-        ticket1.setSeatNumber(2);
-        ticket1.setTicketClass(Class.BUSINESS);
-        ticket1.set_return(false);
-        ticket1.set_package(_package);
-        ticket1.setTotalPrice(200.0);
-        ticket1.setOwner(passenger);
-
-
-
-        ticketRepository.save(ticket);
-        ticketRepository.save(ticket1);
 
         Coupon coupon = new Coupon();
         coupon.setCouponCode("123");
