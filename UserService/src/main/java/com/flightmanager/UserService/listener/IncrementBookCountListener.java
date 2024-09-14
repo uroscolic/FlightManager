@@ -20,10 +20,10 @@ public class IncrementBookCountListener {
         this.userService = userService;
     }
 
-    @JmsListener(destination = "${destination.incrementBookCount}", concurrency = "5-10")
+    @JmsListener(destination = "${destination.incrementBookCount}", concurrency = "1")
     public void incrementReservationCount(Message message) throws JMSException {
         IncrementBookCountDto incrementReservationCountDto = messageHelper.getMessage(message, IncrementBookCountDto.class);
-        System.out.println(incrementReservationCountDto);
+        System.out.println(incrementReservationCountDto.getUserId() + " incrementing reservation count");
         userService.incrementReservationCount(incrementReservationCountDto);
     }
 

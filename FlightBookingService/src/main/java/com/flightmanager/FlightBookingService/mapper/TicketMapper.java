@@ -51,9 +51,6 @@ public class TicketMapper {
         ticket.setReturnSeatNumber(ticketCreateDto.getReturnSeatNumber());
         ticket.setTicketClass(ticketCreateDto.getTicketClass());
         ticket.set_return(ticketCreateDto.is_return());
-        System.out.println("TicketCreateDto-Return: " + ticketCreateDto.is_return());
-        System.out.println("TicketCreateDto: " + ticketCreateDto);
-        System.out.println("Ticket: " + ticket.is_return());
 
         Package _package = new Package();
         _package.setId(ticketCreateDto.get_package().getId());

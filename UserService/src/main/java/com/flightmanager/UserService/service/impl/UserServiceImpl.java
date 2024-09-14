@@ -150,12 +150,19 @@ public class UserServiceImpl implements IUserService {
         return new TokenResponseDto(tokenService.generate(claims), user.getId(), user.getRole().getRoleType().toString(), user.getEmail(), user.getFirstName(), user.getLastName());
     }
 
+    @Transactional
     @Override
     public void incrementReservationCount(IncrementBookCountDto incrementBookCountDto) {
         User user = userRepository.findById(incrementBookCountDto.getUserId()).orElseThrow(() -> new RuntimeException("Client not found"));
         if(user instanceof Client client){
-            client.setNumberOfBookings(client.getNumberOfBookings() + 1);
-            userRepository.save(user);
+            Long curr = client.getNumberOfBookings();
+            System.out.println(curr + " curr ");
+            client.setNumberOfBookings(curr + 1);
+            System.out.println(client.getNumberOfBookings() + " clenit");
+
+            userRepository.save(client);
+            System.out.println(client.getNumberOfBookings() + " number of reservations" );
+
         }
         else {
             throw new RuntimeException("Client not found");

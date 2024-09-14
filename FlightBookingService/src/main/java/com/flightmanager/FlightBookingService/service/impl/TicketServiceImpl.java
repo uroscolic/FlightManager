@@ -109,6 +109,7 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @Transactional
     @Override
     public TicketDto createTicket(TicketCreateDto ticketCreateDto) {
         Ticket ticket = ticketMapper.ticketCreateDtoToTicket(ticketCreateDto);
@@ -133,9 +134,11 @@ public class TicketServiceImpl implements ITicketService {
 
 
 
-        Flight flight = ticket.getFlight();
+        Flight flight = flightRepository.findById(ticket.getFlight().getId()).orElse(null);
         Class ticketClass = ticket.getTicketClass();
         helperCreate(flight, ticketClass);
+        System.out.println(flight.getId() + " id leta");
+        System.out.println(flight.getAvailableBusinessSeats() + " " + flight.getAvailableEconomySeats() + " " + flight.getAvailableFirstClassSeats());
 
         if(ticket.is_return()) {
             flight = ticket.getReturnFlight();
@@ -170,7 +173,7 @@ public class TicketServiceImpl implements ITicketService {
 
 
         Class ticketClass = ticket.getTicketClass();
-        Flight flight = ticket.getFlight();
+        Flight flight = flightRepository.findById(ticket.getFlight().getId()).orElse(null);
         helper(ticketClass, flight);
 
         if(ticket.is_return()) {
@@ -220,24 +223,34 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     private void helperCreate(Flight flight, Class ticketClass) {
+        System.out.println(LocalDateTime.now() + "  current time");
+        Flight updatedFlight = flightRepository.findById(flight.getId())
+                .orElseThrow(() -> new RuntimeException("Flight not found"));
 
-        if(ticketClass == Class.BUSINESS) {
-            if(flight.getAvailableBusinessSeats() == 0) {
+        System.out.println("Before update: " + updatedFlight.getAvailableBusinessSeats() + " " + updatedFlight.getAvailableEconomySeats() + " " + updatedFlight.getAvailableFirstClassSeats());
+
+        if (ticketClass == Class.BUSINESS) {
+            if (updatedFlight.getAvailableBusinessSeats() <= 0) {
                 throw new RuntimeException("No more business seats available");
             }
-            flight.setAvailableBusinessSeats(flight.getAvailableBusinessSeats() - 1);
-        } else if(ticketClass == Class.ECONOMY) {
-            if(flight.getAvailableEconomySeats() == 0) {
+            updatedFlight.setAvailableBusinessSeats(updatedFlight.getAvailableBusinessSeats() - 1);
+            System.out.println(LocalDateTime.now() + "  current timeeeeee business");
+        } else if (ticketClass == Class.ECONOMY) {
+            if (updatedFlight.getAvailableEconomySeats() <= 0) {
                 throw new RuntimeException("No more economy seats available");
             }
-            flight.setAvailableEconomySeats(flight.getAvailableEconomySeats() - 1);
-        } else {
-            if(flight.getAvailableFirstClassSeats() == 0) {
+            updatedFlight.setAvailableEconomySeats(updatedFlight.getAvailableEconomySeats() - 1);
+        } else if (ticketClass == Class.FIRST) {
+            if (updatedFlight.getAvailableFirstClassSeats() <= 0) {
                 throw new RuntimeException("No more first class seats available");
             }
-            flight.setAvailableFirstClassSeats(flight.getAvailableFirstClassSeats() - 1);
+            updatedFlight.setAvailableFirstClassSeats(updatedFlight.getAvailableFirstClassSeats() - 1);
         }
-        flightRepository.save(flight);
+
+        flightRepository.save(updatedFlight);
+        System.out.println("After update: " + updatedFlight.getAvailableBusinessSeats() + " " + updatedFlight.getAvailableEconomySeats() + " " + updatedFlight.getAvailableFirstClassSeats());
     }
+
+
 
 }
