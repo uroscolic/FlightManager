@@ -156,12 +156,9 @@ public class UserServiceImpl implements IUserService {
         User user = userRepository.findById(incrementBookCountDto.getUserId()).orElseThrow(() -> new RuntimeException("Client not found"));
         if(user instanceof Client client){
             Long curr = client.getNumberOfBookings();
-            System.out.println(curr + " curr ");
             client.setNumberOfBookings(curr + 1);
-            System.out.println(client.getNumberOfBookings() + " clenit");
 
             userRepository.save(client);
-            System.out.println(client.getNumberOfBookings() + " number of reservations" );
 
         }
         else {

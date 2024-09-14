@@ -13,7 +13,6 @@ public class TicketSpecification {
 
     public static Specification<Ticket> withOwner(String email) {
 
-        System.out.println("Email: " + email);
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("owner").get("email"), email);
     }

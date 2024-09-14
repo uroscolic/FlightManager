@@ -17,7 +17,6 @@ public class TicketMapper {
 
     public TicketDto ticketToTicketDto(Ticket ticket)
     {
-        System.out.println("Ticket: " + ticket.toString());
         TicketDto ticketDto = new TicketDto();
         ticketDto.setId(ticket.getId());
         ticketDto.setOwner(passengerMapper.passengerToPassengerDto(ticket.getOwner()));

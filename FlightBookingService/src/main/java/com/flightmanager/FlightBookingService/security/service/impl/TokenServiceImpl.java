@@ -31,7 +31,6 @@ public class TokenServiceImpl implements TokenService {
                     .getBody();
 
         } catch (Exception e) {
-            System.out.println("Exception u parseToken: " + e);
             e.printStackTrace();
             return null;
         }

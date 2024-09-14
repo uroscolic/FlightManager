@@ -22,7 +22,6 @@ public class DecrementBookCountListener {
     @JmsListener(destination = "${destination.decrementBookCount}", concurrency = "5-10")
     public void decrementReservationCount(Message message) throws JMSException {
         DecrementBookCountDto decrementReservationCountDto = messageHelper.getMessage(message, DecrementBookCountDto.class);
-        System.out.println(decrementReservationCountDto);
         userService.decrementReservationCount(decrementReservationCountDto);
     }
 

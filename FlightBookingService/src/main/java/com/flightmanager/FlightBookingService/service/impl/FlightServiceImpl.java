@@ -59,7 +59,6 @@ public class FlightServiceImpl implements IFlightService {
         flight.setAvailableEconomySeats(flight.getPlane().getEconomySeats());
         flight.setAvailableBusinessSeats(flight.getPlane().getBusinessSeats());
         flight.setAvailableFirstClassSeats(flight.getPlane().getFirstClassSeats());
-        System.out.println(flight.getAvailableEconomySeats() + " " + flight.getAvailableBusinessSeats() + " " + flight.getAvailableFirstClassSeats());
         flightRepository.save(flight);
         return flightMapper.flightToFlightDto(flight);
     }
@@ -67,7 +66,6 @@ public class FlightServiceImpl implements IFlightService {
     @Override
     public FlightDto updateFlight(FlightDto oldFlight, FlightChangeDto flightChangeDto) {
         Flight flight = flightMapper.flightChangeDtoToFlight(oldFlight, flightChangeDto);
-        System.out.println(flight + "service impl");
         flightRepository.save(flight);
         return flightMapper.flightToFlightDto(flight);
     }
@@ -79,7 +77,6 @@ public class FlightServiceImpl implements IFlightService {
 
     @Override
     public Page<FlightDto> getFlightsForSearch(FlightSearchDto flightSearchDto, Pageable pageable) {
-        System.out.println(flightSearchDto + "service impl");
         Specification<Flight> spec = Specification.where(flightSearchDto.getOrigin() != null ? FlightSpecification.fromOrigin(flightSearchDto.getOrigin()) : null)
                 .and(flightSearchDto.getDestination() != null ? FlightSpecification.toDestination(flightSearchDto.getDestination()) : null)
                 .and((flightSearchDto.getDepartureStart() != null) ?

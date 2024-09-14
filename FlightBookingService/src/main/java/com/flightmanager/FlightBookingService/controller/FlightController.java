@@ -55,7 +55,6 @@ public class FlightController {
     public ResponseEntity<Page<FlightDto>> searchFlights(
             @RequestBody FlightSearchDto flightSearchDto,
             Pageable pageable) {
-        System.out.println(flightSearchDto + " controller");
 
         return new ResponseEntity<>(flightService.getFlightsForSearch(
                 flightSearchDto,
@@ -71,8 +70,6 @@ public class FlightController {
             @PathVariable("id") Long id, @RequestBody FlightChangeDto flightChangeDto){
 
         FlightDto oldFlight = flightService.getFlightById(id);
-        System.out.println(oldFlight + "contr old");
-        System.out.println(flightChangeDto + " dto contr");
 
         return new ResponseEntity<>(flightService.updateFlight(oldFlight, flightChangeDto), HttpStatus.OK);
     }

@@ -5,7 +5,6 @@ import com.flightmanager.UserService.dto.*;
 import com.flightmanager.UserService.security.CheckSecurity;
 import com.flightmanager.UserService.security.service.TokenService;
 import com.flightmanager.UserService.service.IUserService;
-import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

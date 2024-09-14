@@ -67,7 +67,6 @@ public class FlightSpecification {
         LocalDate startDate = start.toLocalDate();
         LocalDateTime startDateTime = startDate.plusDays(1).atStartOfDay(); // 10/12/2024 it sends as 10/11/2024 22:00 gmt+0200
         LocalDateTime endDateTime = startDate.plusDays(2).atStartOfDay();
-        System.out.println(startDateTime + " " + endDateTime);
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.between(root.get("departureTime"), startDateTime, endDateTime);
     }

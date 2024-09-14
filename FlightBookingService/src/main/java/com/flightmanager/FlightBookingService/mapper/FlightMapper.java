@@ -124,11 +124,6 @@ public class FlightMapper {
 
         flight.setDestination(destination);
 
-        System.out.println("new gate"+flightChangeDto.getNewGate());
-        System.out.println("new departure time"+flightChangeDto.getNewDepartureTime());
-        System.out.println("new arrival time"+flightChangeDto.getNewArrivalTime());
-        System.out.println("new price"+flightChangeDto.getNewPrice());
-
         flight.setGate(flightChangeDto.getNewGate());
         flight.setDepartureTime(flightChangeDto.getNewDepartureTime());
         flight.setArrivalTime(flightChangeDto.getNewArrivalTime());
