@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/airport")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AirportController {
 
     private IAirportService airportService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<?> getAirports(
             @RequestParam(required = false) String name,
@@ -36,13 +36,11 @@ public class AirportController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<AirportDto> getAirportById(@PathVariable Long id) {
         return new ResponseEntity<>(airportService.getAirportById(id), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<AirportDto> createAirport(
@@ -51,7 +49,6 @@ public class AirportController {
         return new ResponseEntity<>(airportService.createAirport(airportCreateDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<AirportDto> updateAirport(

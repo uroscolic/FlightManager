@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/location")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class LocationController {
 
     private ILocationService iLocationService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<LocationDto>> getAllLocations(Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getAllLocations(pageable), HttpStatus.OK);
@@ -36,12 +36,10 @@ public class LocationController {
     public ResponseEntity<Page<LocationDto>> getLocationsByCountry(@PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCountry(country,pageable), HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{city}/{country}")
     public ResponseEntity<Page<LocationDto>> getLocationsByCityAndCountry(@PathVariable("city") String city, @PathVariable("country") String country,Pageable pageable) {
         return new ResponseEntity<>(iLocationService.getLocationsByCityAndCountry(city,country,pageable), HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<LocationDto> createLocation(@RequestHeader("Authorization") String authorization, @RequestBody LocationCreateDto locationCreateDto) {

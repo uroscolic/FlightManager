@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
     private IUserService userService;
 
@@ -24,7 +25,6 @@ public class AdminController {
 
         return new ResponseEntity<>(userService.findAllOfRole(pageable, RoleType.ROLE_ADMIN), HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all-users")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<Page<UserDto>> getAllUsers(@RequestHeader("Authorization") String authorization,

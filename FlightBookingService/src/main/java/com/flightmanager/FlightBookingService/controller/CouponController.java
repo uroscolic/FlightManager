@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/coupon")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class CouponController {
 
     private ICouponService iCouponService;
     private CouponMapper couponMapper;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<Page<CouponDto>> getAllCoupons(@RequestHeader("Authorization") String authorization,
@@ -29,7 +29,6 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.getAllCoupons(pageable), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{coupon-code}")
     //@CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> getCouponByCouponCode(//@RequestHeader("Authorization") String authorization,
@@ -37,7 +36,6 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.getCouponByCouponCode(couponCode), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponCreateDto couponCreateDto,
@@ -45,7 +43,6 @@ public class CouponController {
         return new ResponseEntity<>(iCouponService.createCoupon(couponCreateDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{couponCode}")
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<CouponDto> updateCoupon(@RequestHeader("Authorization") String authorization, @RequestBody CouponChangeActivityDto couponChangeActivityDto) {

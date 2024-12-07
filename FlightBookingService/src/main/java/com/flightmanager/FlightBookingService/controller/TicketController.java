@@ -21,12 +21,12 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/ticket")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketController {
 
     private ITicketService iTicketService;
     private TokenService tokenService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_CLIENT", "ROLE_MANAGER", "ROLE_ADMIN"})
     public ResponseEntity<Page<TicketDto>> getTickets(
@@ -61,13 +61,11 @@ public class TicketController {
                 returnFlightArrivalStart, returnFlightArrivalEnd, pageable), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketCreateDto ticketCreateDto){
         return new ResponseEntity<>(iTicketService.createTicket(ticketCreateDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> cancelTicket(@PathVariable("id") Long id){
         return new ResponseEntity<>(iTicketService.cancelTicket(id), HttpStatus.OK);

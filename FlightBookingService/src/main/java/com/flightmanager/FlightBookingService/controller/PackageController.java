@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/package")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PackageController {
 
     private IPackageService packageService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<?> getPackages(
             @RequestParam(required = false) String name,
@@ -28,7 +28,6 @@ public class PackageController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN","ROLE_MANAGER"})
     public ResponseEntity<?> createPackage(@RequestHeader("Authorization") String authorization, @RequestBody PackageCreateDto packageCreateDto){

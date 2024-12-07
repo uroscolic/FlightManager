@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/passenger")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PassengerController {
 
     private IPassengerService passengerService;
     private TokenService tokenService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER", "ROLE_CLIENT"})
     public ResponseEntity<?> getAllPassengers(
@@ -35,7 +35,6 @@ public class PassengerController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<PassengerDto> createPassenger(@RequestBody PassengerCreateDto passengerCreateDto) {
         return new ResponseEntity<>(passengerService.createPassenger(passengerCreateDto), HttpStatus.CREATED);

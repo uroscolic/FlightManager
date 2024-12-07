@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/manager")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ManagerController {
 
     private IUserService userService;
@@ -35,7 +36,6 @@ public class ManagerController {
         return ResponseEntity.ok(userService.findManagerById(id));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ManagerDto> registerManager(@RequestHeader("Authorization") String authorization,
@@ -43,7 +43,6 @@ public class ManagerController {
         return new ResponseEntity<>(userService.registerManager(managerCreateDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/ban")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ManagerDto> banManager(@RequestHeader("Authorization") String authorization,
@@ -51,7 +50,6 @@ public class ManagerController {
         return new ResponseEntity<>(userService.banManager(managerBanDto), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/change-password")
     @CheckSecurity(roles = {"ROLE_MANAGER"})
     public ResponseEntity<UserDto> changePassword(@RequestHeader("Authorization") String authorization,

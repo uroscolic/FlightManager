@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/plane")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PlaneController {
 
     //TODO zauzeti avion da ne moze da leti dok se ne zavrsi let
 
     private IPlaneService iPlaneService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<PlaneDto>> getPlanes(
             @RequestParam(required = false) String name,
@@ -32,7 +32,6 @@ public class PlaneController {
         return new ResponseEntity<>(iPlaneService.getPlanes(name, businessSeats, firstClassSeats, economySeats, pageable), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<PlaneDto> createPlane(@RequestHeader("Authorization") String authorization, @RequestBody PlaneCreateDto planeCreateDto) {

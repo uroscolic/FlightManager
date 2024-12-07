@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/flight")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class FlightController {
 
     private IFlightService flightService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<Page<FlightDto>> getFlights(
             @RequestParam(required = false) Plane plane,
@@ -41,7 +41,6 @@ public class FlightController {
         return new ResponseEntity<>(flightService.getFlights(plane, origin, destination, gate, departureStart, departureEnd, arrivalStart, arrivalEnd, fromPrice, toPrice, pageable), org.springframework.http.HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<FlightDto> createFlight(
@@ -50,7 +49,6 @@ public class FlightController {
         return new ResponseEntity<>(flightService.createFlight(flightCreateDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/search")
     public ResponseEntity<Page<FlightDto>> searchFlights(
             @RequestBody FlightSearchDto flightSearchDto,
@@ -62,7 +60,6 @@ public class FlightController {
                 org.springframework.http.HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/{id}")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<FlightDto> updateFlight(
@@ -74,7 +71,6 @@ public class FlightController {
         return new ResponseEntity<>(flightService.updateFlight(oldFlight, flightChangeDto), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<FlightDto> getFlightById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(flightService.getFlightById(id), HttpStatus.OK);
